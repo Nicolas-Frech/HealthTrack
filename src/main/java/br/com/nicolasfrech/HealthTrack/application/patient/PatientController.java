@@ -7,6 +7,9 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/patient")
@@ -16,9 +19,11 @@ public class PatientController {
     private PatientService patientService;
 
     @PostMapping
-    public ResponseEntity registPatient(@RequestBody @Valid PatientRegistDTO dto) {
+    public ResponseEntity<PatientReturnDTO> registPatient(@RequestBody @Valid PatientRegistDTO dto,
+                                                          UriComponentsBuilder uriBuilder) {
         Patient patient = patientService.registPatient(dto);
 
-        return ResponseEntity.ok().body(new PatientReturnDTO(patient));
+        URI uri = uriBuilder.path("/patient/{id}").buildAndExpand(patient.getId()).toUri();
+        return ResponseEntity.created(uri).body(new PatientReturnDTO(patient));
     }
 }
