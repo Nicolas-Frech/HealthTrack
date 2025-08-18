@@ -21,6 +21,14 @@ public class Patient {
         this.email = email;
     }
 
+    public Patient(String name, String cpf, Integer age, String email, String telephone) {
+        this.name = name;
+        this.cpf = cpf;
+        this.age = age;
+        this.email = email;
+        this.telephone = telephone;
+    }
+
     public Long getId() {
         return id;
     }
