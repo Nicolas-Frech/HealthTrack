@@ -23,9 +23,23 @@ public class Patient {
 
     public Patient(String name, String cpf, Integer age, String email, String telephone) {
         this.name = name;
+        if(!cpf.matches("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$|^\\d{11}$")) {
+            throw new IllegalArgumentException("CPF INVÁLIDO!");
+        }
+
         this.cpf = cpf;
         this.age = age;
+
+        if(!email.matches("^[\\w.-]+@[\\w.-]+\\.\\w{2,}$")) {
+            throw new IllegalArgumentException("E-MAIL INVÁLIDO!");
+        }
+
         this.email = email;
+
+        if(!telephone.matches("^\\(\\d{2}\\)\\s?\\d{4,5}-\\d{4}$")) {
+            throw new IllegalArgumentException("TELEFONE INVÁLIDO!");
+        }
+
         this.telephone = telephone;
     }
 

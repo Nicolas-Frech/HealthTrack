@@ -14,7 +14,6 @@ public class PatientService {
         this.patientRepository = patientRepository;
     }
 
-
     public Patient registPatient(PatientRegistDTO dto) {
         Patient patient = new Patient(dto.name(), dto.cpf(), dto.age(),
                 dto.email(), dto.telephone());
