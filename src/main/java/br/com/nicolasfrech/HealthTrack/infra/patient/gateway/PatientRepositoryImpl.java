@@ -5,6 +5,8 @@ import br.com.nicolasfrech.HealthTrack.domain.patient.Patient;
 import br.com.nicolasfrech.HealthTrack.infra.patient.persistence.PatientEntity;
 import br.com.nicolasfrech.HealthTrack.infra.patient.persistence.PatientRepositoryJPA;
 
+import java.util.Optional;
+
 public class PatientRepositoryImpl implements PatientRepository {
 
     private final PatientEntityMapper mapper;
@@ -27,6 +29,12 @@ public class PatientRepositoryImpl implements PatientRepository {
     public Patient findByIdAndActiveTrue(Long id) {
         PatientEntity patient = jpaRepository.findByIdAndActiveTrue(id);
 
+        return mapper.toDomain(patient);
+    }
+
+    @Override
+    public Patient findById(Long id) {
+        PatientEntity patient = jpaRepository.getReferenceById(id);
         return mapper.toDomain(patient);
     }
 }

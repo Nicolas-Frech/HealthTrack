@@ -28,4 +28,10 @@ public class PatientService {
 
         patientRepository.save(patient);
     }
+
+    public Patient findPatientById(Long id) {
+        Patient patient = patientRepository.findById(id);
+
+        return patient;
+    }
 }
