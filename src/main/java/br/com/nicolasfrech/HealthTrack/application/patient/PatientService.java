@@ -21,4 +21,11 @@ public class PatientService {
         patientRepository.save(patient);
         return patient;
     }
+
+    public void deletePatient(Long id) {
+        Patient patient = patientRepository.findByIdAndActiveTrue(id);
+        patient.deletePatient();
+
+        patientRepository.save(patient);
+    }
 }

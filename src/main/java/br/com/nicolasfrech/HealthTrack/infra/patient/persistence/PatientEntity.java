@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "patients")
 @EqualsAndHashCode(of = "id")
-@NoArgsConstructor
 public class PatientEntity {
 
     @Id
@@ -20,14 +19,23 @@ public class PatientEntity {
     private Integer age;
     private String email;
     private String telephone;
+    private Boolean active;
 
-    public PatientEntity(String telephone, String email, Integer age, String cpf, String name, Long id) {
+    public PatientEntity(){
+    }
+
+    public PatientEntity(String telephone, String email, Integer age, String cpf, String name, Long id, Boolean active) {
         this.telephone = telephone;
         this.email = email;
         this.age = age;
         this.cpf = cpf;
         this.name = name;
         this.id = id;
+        this.active = active;
+    }
+
+    public Boolean getActive() {
+        return active;
     }
 
     public Long getId() {

@@ -11,7 +11,8 @@ public class PatientEntityMapper {
                 patient.getAge(),
                 patient.getCpf(),
                 patient.getName(),
-                patient.getId());
+                patient.getId(),
+                patient.getActive());
     }
 
     public Patient toDomain(PatientEntity entity) {
@@ -19,6 +20,7 @@ public class PatientEntityMapper {
                 entity.getName(),
                 entity.getCpf(),
                 entity.getAge(),
-                entity.getEmail());
+                entity.getEmail(),
+                entity.getActive());
     }
 }

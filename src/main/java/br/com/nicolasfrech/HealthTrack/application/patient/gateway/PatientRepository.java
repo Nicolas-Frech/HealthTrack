@@ -5,4 +5,6 @@ import br.com.nicolasfrech.HealthTrack.domain.patient.Patient;
 public interface PatientRepository {
 
     Patient save(Patient patient);
+
+    Patient findByIdAndActiveTrue(Long id);
 }

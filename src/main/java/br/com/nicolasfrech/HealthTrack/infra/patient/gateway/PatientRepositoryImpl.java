@@ -22,4 +22,11 @@ public class PatientRepositoryImpl implements PatientRepository {
         jpaRepository.save(entity);
         return mapper.toDomain(entity);
     }
+
+    @Override
+    public Patient findByIdAndActiveTrue(Long id) {
+        PatientEntity patient = jpaRepository.findByIdAndActiveTrue(id);
+
+        return mapper.toDomain(patient);
+    }
 }

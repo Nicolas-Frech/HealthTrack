@@ -8,17 +8,19 @@ public class Patient {
     private Integer age;
     private String email;
     private String telephone;
+    private Boolean active;
 
     public Patient() {
     }
 
-    public Patient(Long id, String telephone, String name, String cpf, Integer age, String email) {
+    public Patient(Long id, String telephone, String name, String cpf, Integer age, String email, Boolean active) {
         this.id = id;
         this.telephone = telephone;
         this.name = name;
         this.cpf = cpf;
         this.age = age;
         this.email = email;
+        this.active = active;
     }
 
     public Patient(String name, String cpf, Integer age, String email, String telephone) {
@@ -41,6 +43,15 @@ public class Patient {
         }
 
         this.telephone = telephone;
+        active = true;
+    }
+
+    public void deletePatient() {
+        active = false;
+    }
+
+    public Boolean getActive() {
+        return active;
     }
 
     public Long getId() {
