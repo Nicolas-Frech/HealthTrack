@@ -1,6 +1,7 @@
 package br.com.nicolasfrech.HealthTrack.domain.patient;
 
 import br.com.nicolasfrech.HealthTrack.application.patient.dto.PatientUpdateDTO;
+import br.com.nicolasfrech.HealthTrack.domain.patient.validation.PatientValidator;
 
 public class Patient {
 

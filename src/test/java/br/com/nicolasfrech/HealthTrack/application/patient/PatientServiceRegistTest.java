@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringBootTest
-public class PatientServiceTest {
+public class PatientServiceRegistTest {
 
     @Autowired
     private PatientService patientService;

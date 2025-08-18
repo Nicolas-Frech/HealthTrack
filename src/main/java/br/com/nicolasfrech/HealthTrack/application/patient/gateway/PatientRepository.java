@@ -9,4 +9,5 @@ public interface PatientRepository {
     Patient findByIdAndActiveTrue(Long id);
 
     Patient findById(Long id);
+
 }

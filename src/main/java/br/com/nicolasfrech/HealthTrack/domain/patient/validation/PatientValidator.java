@@ -1,4 +1,4 @@
-package br.com.nicolasfrech.HealthTrack.domain.patient;
+package br.com.nicolasfrech.HealthTrack.domain.patient.validation;
 
 public class PatientValidator {
     public static String validateCPF(String cpf) {
