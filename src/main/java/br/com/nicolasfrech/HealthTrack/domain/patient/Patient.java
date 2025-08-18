@@ -1,5 +1,7 @@
 package br.com.nicolasfrech.HealthTrack.domain.patient;
 
+import br.com.nicolasfrech.HealthTrack.application.patient.dto.PatientUpdateDTO;
+
 public class Patient {
 
     private Long id;
@@ -48,6 +50,18 @@ public class Patient {
 
     public void deletePatient() {
         active = false;
+    }
+
+    public void updatePatient(PatientUpdateDTO dto) {
+        if(dto.email() != null && !dto.email().isBlank()) {
+            this.email = dto.email();
+        }
+        if(dto.age() != null && dto.age() > 0) {
+            this.age = dto.age();
+        }
+        if(dto.telephone() != null && !dto.telephone().isBlank()) {
+            this.telephone = dto.telephone();
+        }
     }
 
     public Boolean getActive() {

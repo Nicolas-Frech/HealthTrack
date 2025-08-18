@@ -18,7 +18,7 @@ public class SecurityConfiguration {
                 .cors(Customizer.withDefaults())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(req -> {
-                    req.requestMatchers("/patient/{id}").permitAll();
+                    req.requestMatchers("/patient").permitAll();
                 })
                 .build();
     }

@@ -1,6 +1,7 @@
 package br.com.nicolasfrech.HealthTrack.application.patient;
 
 import br.com.nicolasfrech.HealthTrack.application.patient.dto.PatientRegistDTO;
+import br.com.nicolasfrech.HealthTrack.application.patient.dto.PatientUpdateDTO;
 import br.com.nicolasfrech.HealthTrack.application.patient.gateway.PatientRepository;
 import br.com.nicolasfrech.HealthTrack.domain.patient.Patient;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,14 @@ public class PatientService {
     public Patient findPatientById(Long id) {
         Patient patient = patientRepository.findById(id);
 
+        return patient;
+    }
+
+    public Patient updatePatient(PatientUpdateDTO dto) {
+        Patient patient = patientRepository.findById(dto.id());
+        patient.updatePatient(dto);
+
+        patientRepository.save(patient);
         return patient;
     }
 }

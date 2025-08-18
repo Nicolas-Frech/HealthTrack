@@ -2,6 +2,7 @@ package br.com.nicolasfrech.HealthTrack.application.patient;
 
 import br.com.nicolasfrech.HealthTrack.application.patient.dto.PatientRegistDTO;
 import br.com.nicolasfrech.HealthTrack.application.patient.dto.PatientReturnDTO;
+import br.com.nicolasfrech.HealthTrack.application.patient.dto.PatientUpdateDTO;
 import br.com.nicolasfrech.HealthTrack.domain.patient.Patient;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,8 +39,16 @@ public class PatientController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity findPatientById(@PathVariable Long id) {
+    public ResponseEntity<PatientReturnDTO> findPatientById(@PathVariable Long id) {
         Patient patient = patientService.findPatientById(id);
+
+        return ResponseEntity.ok().body(new PatientReturnDTO(patient));
+    }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity<PatientReturnDTO> updatePatient(@RequestBody @Valid PatientUpdateDTO dto) {
+        Patient patient = patientService.updatePatient(dto);
 
         return ResponseEntity.ok().body(new PatientReturnDTO(patient));
     }
