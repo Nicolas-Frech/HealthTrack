@@ -2,7 +2,7 @@ package br.com.nicolasfrech.HealthTrack.application.patient;
 
 import br.com.nicolasfrech.HealthTrack.application.patient.dto.PatientRegistDTO;
 import br.com.nicolasfrech.HealthTrack.application.patient.gateway.PatientRepository;
-import br.com.nicolasfrech.HealthTrack.domain.Patient;
+import br.com.nicolasfrech.HealthTrack.domain.patient.Patient;
 import org.springframework.stereotype.Service;
 
 @Service

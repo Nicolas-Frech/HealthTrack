@@ -1,6 +1,6 @@
 package br.com.nicolasfrech.HealthTrack.infra.patient.gateway;
 
-import br.com.nicolasfrech.HealthTrack.domain.Patient;
+import br.com.nicolasfrech.HealthTrack.domain.patient.Patient;
 import br.com.nicolasfrech.HealthTrack.infra.patient.persistence.PatientEntity;
 
 public class PatientEntityMapper {

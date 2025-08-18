@@ -1,4 +1,4 @@
-package br.com.nicolasfrech.HealthTrack.domain;
+package br.com.nicolasfrech.HealthTrack.domain.patient;
 
 public class Patient {
 

@@ -1,7 +1,7 @@
 package br.com.nicolasfrech.HealthTrack.infra.patient.gateway;
 
 import br.com.nicolasfrech.HealthTrack.application.patient.gateway.PatientRepository;
-import br.com.nicolasfrech.HealthTrack.domain.Patient;
+import br.com.nicolasfrech.HealthTrack.domain.patient.Patient;
 import br.com.nicolasfrech.HealthTrack.infra.patient.persistence.PatientEntity;
 import br.com.nicolasfrech.HealthTrack.infra.patient.persistence.PatientRepositoryJPA;
 

@@ -1,6 +1,6 @@
 package br.com.nicolasfrech.HealthTrack.application.patient.gateway;
 
-import br.com.nicolasfrech.HealthTrack.domain.Patient;
+import br.com.nicolasfrech.HealthTrack.domain.patient.Patient;
 
 public interface PatientRepository {
 
