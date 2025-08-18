@@ -3,12 +3,10 @@ package br.com.nicolasfrech.HealthTrack.infra.patient.persistence;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "patients")
-@Getter
 @EqualsAndHashCode(of = "id")
 @NoArgsConstructor
 public class PatientEntity {
@@ -30,5 +28,29 @@ public class PatientEntity {
         this.cpf = cpf;
         this.name = name;
         this.id = id;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getTelephone() {
+        return telephone;
     }
 }
