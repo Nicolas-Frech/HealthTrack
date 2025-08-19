@@ -17,9 +17,9 @@ public class SecurityConfiguration {
         return http.csrf(csrf -> csrf.disable())
                 .cors(Customizer.withDefaults())
                 .sessionManagement(sm -> sm.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-                .authorizeHttpRequests(req -> {
-                    req.requestMatchers("/patient").permitAll();
-                })
+                .authorizeHttpRequests(req -> req
+                        .anyRequest().permitAll()
+                )
                 .build();
     }
 }
