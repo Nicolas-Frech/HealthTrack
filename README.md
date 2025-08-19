@@ -43,6 +43,20 @@ Este software foi desenvolvido com as seguintes tecnologias:
   - JWT
   - Spring Security
 
+## 🔧 Status do Projeto
+
+O projeto ainda está em desenvolvimento.
+
+- **Funcionalidades Atuais:**
+
+  - Gerenciamento de Pacientes (CRUD)
+
+- **Funcionalidades Planejadas:**
+
+  - Gerenciamento de Médicos (CRUD)
+  - Agendamento de Consultas
+  - Autenticação de Usuários
+
 ## 🤝 Contribuição
 
 Contribuições são sempre bem-vindas! Para contribuir:
