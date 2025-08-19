@@ -1,6 +1,6 @@
-package br.com.nicolasfrech.HealthTrack.domain.patient.validation;
+package br.com.nicolasfrech.HealthTrack.domain.validation;
 
-public class PatientValidator {
+public class DomainValidator {
     public static String validateCPF(String cpf) {
         if (cpf == null || !cpf.matches("^\\d{3}\\.\\d{3}\\.\\d{3}-\\d{2}$|^\\d{11}$")) {
             throw new IllegalArgumentException("CPF INVÁLIDO!");
@@ -20,5 +20,12 @@ public class PatientValidator {
             throw new IllegalArgumentException("TELEFONE INVÁLIDO!");
         }
         return telephone;
+    }
+
+    public static String validateCRM(String crm) {
+        if (crm == null || !crm.matches("^[A-Z]{2}\\d{4,6}$")) {
+            throw new IllegalArgumentException("CRM INVÁLIDO!");
+        }
+        return crm;
     }
 }
