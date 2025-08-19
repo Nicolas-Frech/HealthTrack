@@ -6,6 +6,9 @@ import br.com.nicolasfrech.HealthTrack.application.patient.dto.PatientUpdateDTO;
 import br.com.nicolasfrech.HealthTrack.domain.patient.Patient;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -51,5 +54,11 @@ public class PatientController {
         Patient patient = patientService.updatePatient(dto);
 
         return ResponseEntity.ok().body(new PatientReturnDTO(patient));
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<PatientReturnDTO>> listAllPatients(@PageableDefault(size = 10, sort = {"name"}) Pageable pageable) {
+        Page<PatientReturnDTO> page = patientService.findAllPatients(pageable).map(PatientReturnDTO::new);
+        return ResponseEntity.ok(page);
     }
 }

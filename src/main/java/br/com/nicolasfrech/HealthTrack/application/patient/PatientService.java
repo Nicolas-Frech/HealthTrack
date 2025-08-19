@@ -4,6 +4,8 @@ import br.com.nicolasfrech.HealthTrack.application.patient.dto.PatientRegistDTO;
 import br.com.nicolasfrech.HealthTrack.application.patient.dto.PatientUpdateDTO;
 import br.com.nicolasfrech.HealthTrack.application.patient.gateway.PatientRepository;
 import br.com.nicolasfrech.HealthTrack.domain.patient.Patient;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -42,5 +44,9 @@ public class PatientService {
 
         patientRepository.save(patient);
         return patient;
+    }
+
+    public Page<Patient> findAllPatients(Pageable pageable) {
+        return patientRepository.findAllByActiveTrue(pageable);
     }
 }

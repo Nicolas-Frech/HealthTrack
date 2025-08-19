@@ -3,7 +3,6 @@ package br.com.nicolasfrech.HealthTrack.infra.patient.persistence;
 
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "patients")
