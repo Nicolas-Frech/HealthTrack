@@ -1,5 +1,6 @@
 package br.com.nicolasfrech.HealthTrack.domain.medic;
 
+import br.com.nicolasfrech.HealthTrack.application.medic.dto.MedicUpdateDTO;
 import br.com.nicolasfrech.HealthTrack.domain.validation.DomainValidator;
 
 public class Medic {
@@ -37,6 +38,16 @@ public class Medic {
     public void deleteMedic() {
         this.active = false;
     }
+
+    public void updateMedic(MedicUpdateDTO dto) {
+        if(dto.email() != null && !dto.email().isBlank()) {
+            this.email = DomainValidator.validateEmail(dto.email());
+        }
+        if(dto.telephone() != null && !dto.telephone().isBlank()) {
+            this.telephone = DomainValidator.validateTelephone(dto.telephone());
+        }
+    }
+
 
     public Long getId() {
         return id;

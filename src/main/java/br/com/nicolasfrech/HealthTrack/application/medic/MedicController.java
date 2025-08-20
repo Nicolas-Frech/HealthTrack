@@ -2,6 +2,7 @@ package br.com.nicolasfrech.HealthTrack.application.medic;
 
 import br.com.nicolasfrech.HealthTrack.application.medic.dto.MedicRegistDTO;
 import br.com.nicolasfrech.HealthTrack.application.medic.dto.MedicReturnDTO;
+import br.com.nicolasfrech.HealthTrack.application.medic.dto.MedicUpdateDTO;
 import br.com.nicolasfrech.HealthTrack.domain.medic.Medic;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class MedicController {
 
     @DeleteMapping("/{id}")
     @Transactional
-    public ResponseEntity deleteMedic(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteMedic(@PathVariable Long id) {
         medicService.deleteMedic(id);
 
         return ResponseEntity.noContent().build();
@@ -39,6 +40,14 @@ public class MedicController {
     @GetMapping("/{id}")
     public ResponseEntity<MedicReturnDTO> findMedicById(@PathVariable Long id) {
         Medic medic = medicService.findMedicById(id);
+
+        return ResponseEntity.ok(new MedicReturnDTO(medic));
+    }
+
+    @PutMapping
+    @Transactional
+    public ResponseEntity<MedicReturnDTO> updateMedic(@RequestBody @Valid MedicUpdateDTO dto) {
+        Medic medic = medicService.updateMedic(dto);
 
         return ResponseEntity.ok(new MedicReturnDTO(medic));
     }

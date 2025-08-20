@@ -1,6 +1,7 @@
 package br.com.nicolasfrech.HealthTrack.application.medic;
 
 import br.com.nicolasfrech.HealthTrack.application.medic.dto.MedicRegistDTO;
+import br.com.nicolasfrech.HealthTrack.application.medic.dto.MedicUpdateDTO;
 import br.com.nicolasfrech.HealthTrack.application.medic.gateway.MedicRepository;
 import br.com.nicolasfrech.HealthTrack.domain.medic.Medic;
 import org.springframework.stereotype.Service;
@@ -31,5 +32,13 @@ public class MedicService {
 
     public Medic findMedicById(Long id) {
         return medicRepository.findById(id);
+    }
+
+    public Medic updateMedic(MedicUpdateDTO dto) {
+        Medic medic = medicRepository.findByIdAndActiveTrue(dto.id());
+        medic.updateMedic(dto);
+
+        medicRepository.save(medic);
+        return medic;
     }
 }
