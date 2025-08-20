@@ -4,5 +4,5 @@ import br.com.nicolasfrech.HealthTrack.domain.medic.Medic;
 
 public interface MedicRepository {
 
-    void save(Medic medic);
+    Medic save(Medic medic);
 }
