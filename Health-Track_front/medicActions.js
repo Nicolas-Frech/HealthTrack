@@ -1,15 +1,15 @@
-const apiUrl = "http://localhost:8080/patient";
+const apiUrl = "http://localhost:8080/medic";
 import { showMessage } from './messageUtil.js';
 
 // Registrar
-document.getElementById("patientForm").addEventListener("submit", async (e) => {
+document.getElementById("medicForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const data = {
     name: document.getElementById("name").value,
-    cpf: document.getElementById("cpf").value,
-    age: document.getElementById("age").value,
-    email: document.getElementById("email").value,
-    telephone: document.getElementById("telephone").value
+    crm: document.getElementById("crm").value,
+    speciality: document.getElementById("speciality").value,
+    telephone: document.getElementById("telephone").value,
+    email: document.getElementById("email").value
   };
 
   try {
@@ -19,21 +19,21 @@ document.getElementById("patientForm").addEventListener("submit", async (e) => {
       body: JSON.stringify(data)
     });
     if (res.ok) {
-      showMessage("Paciente registrado com sucesso!");
-      loadPatients();
-    } else showMessage("Erro ao registrar paciente", "danger");
+      showMessage("Médico registrado com sucesso!");
+      loadMedics();
+    } else showMessage("Erro ao registrar médico", "danger");
   } catch {
     showMessage("Erro de conexão com servidor", "danger");
   }
 });
 
+// Atualizar
 document.getElementById("updateForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const data = {
     id: document.getElementById("updateId").value,
-    email: document.getElementById("updateEmail").value || null,
     telephone: document.getElementById("updateTelephone").value || null,
-    age: document.getElementById("updateAge").value || null
+    email: document.getElementById("updateEmail").value || null
   };
 
   try {
@@ -43,14 +43,15 @@ document.getElementById("updateForm").addEventListener("submit", async (e) => {
       body: JSON.stringify(data)
     });
     if (res.ok) {
-      showMessage("Paciente atualizado com sucesso!");
-      loadPatients();
-    } else showMessage("Erro ao atualizar paciente", "danger");
+      showMessage("Médico atualizado com sucesso!");
+      loadMedics();
+    } else showMessage("Erro ao atualizar médico", "danger");
   } catch {
     showMessage("Erro de conexão com servidor", "danger");
   }
 });
 
+// Deletar
 document.getElementById("deleteForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const id = document.getElementById("deleteId").value;
@@ -58,9 +59,9 @@ document.getElementById("deleteForm").addEventListener("submit", async (e) => {
   try {
     const res = await fetch(`${apiUrl}/${id}`, { method: "DELETE" });
     if (res.ok) {
-      showMessage("Paciente deletado com sucesso!");
-      loadPatients();
-    } else showMessage("Erro ao deletar paciente", "danger");
+      showMessage("Médico deletado com sucesso!");
+      loadMedics();
+    } else showMessage("Erro ao deletar médico", "danger");
   } catch {
     showMessage("Erro de conexão com servidor", "danger");
   }
@@ -69,9 +70,9 @@ document.getElementById("deleteForm").addEventListener("submit", async (e) => {
 let currentPage = 0;
 const pageSize = 5;
 
-async function loadPatients(page = 0) {
+async function loadMedics(page = 0) {
   currentPage = page;
-  const tableBody = document.getElementById("patientsTable");
+  const tableBody = document.getElementById("medicsTable");
   const paginationDiv = document.getElementById("pagination");
   tableBody.innerHTML = `<tr><td colspan="6" class="text-center">Carregando...</td></tr>`;
 
@@ -79,41 +80,40 @@ async function loadPatients(page = 0) {
     const res = await fetch(`${apiUrl}?page=${page}&size=${pageSize}`);
     if (res.ok) {
       const data = await res.json();
-      const patients = data.content;
+      const medics = data.content;
 
-      if (!patients || patients.length === 0) {
-        tableBody.innerHTML = `<tr><td colspan="6" class="text-center">Nenhum paciente encontrado.</td></tr>`;
+      if (!medics || medics.length === 0) {
+        tableBody.innerHTML = `<tr><td colspan="6" class="text-center">Nenhum médico encontrado.</td></tr>`;
         paginationDiv.innerHTML = "";
         return;
       }
 
-      tableBody.innerHTML = patients.map(p => `
+      tableBody.innerHTML = medics.map(m => `
         <tr>
-          <td>${p.id}</td>
-          <td>${p.name}</td>
-          <td>${p.cpf}</td>
-          <td>${p.age}</td>
-          <td>${p.email}</td>
-          <td>${p.telephone}</td>
+          <td>${m.id}</td>
+          <td>${m.name}</td>
+          <td>${m.crm}</td>
+          <td>${m.speciality}</td>
+          <td>${m.email}</td>
+          <td>${m.telephone}</td>
         </tr>
       `).join("");
 
       let buttons = "";
       if (!data.first) {
-        buttons += `<button class="btn btn-sm btn-outline-secondary me-2" onclick="loadPatients(${currentPage - 1})">⬅ Anterior</button>`;
+        buttons += `<button class="btn btn-sm btn-outline-secondary me-2" onclick="loadMedics(${currentPage - 1})">⬅ Anterior</button>`;
       }
       if (!data.last) {
-        buttons += `<button class="btn btn-sm btn-outline-secondary" onclick="loadPatients(${currentPage + 1})">Próxima ➡</button>`;
+        buttons += `<button class="btn btn-sm btn-outline-secondary" onclick="loadMedics(${currentPage + 1})">Próxima ➡</button>`;
       }
       paginationDiv.innerHTML = buttons;
     } else {
-      tableBody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">Erro ao carregar pacientes</td></tr>`;
+      tableBody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">Erro ao carregar médicos</td></tr>`;
     }
   } catch {
     tableBody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">Falha na conexão</td></tr>`;
   }
 }
 
-document.getElementById("refreshList").addEventListener("click", () => loadPatients(currentPage));
-
-document.getElementById("list-tab").addEventListener("shown.bs.tab", () => loadPatients(0));
+document.getElementById("refreshList").addEventListener("click", () => loadMedics(currentPage));
+document.getElementById("list-tab").addEventListener("shown.bs.tab", () => loadMedics(0));
