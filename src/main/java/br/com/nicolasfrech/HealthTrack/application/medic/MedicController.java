@@ -35,4 +35,11 @@ public class MedicController {
 
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MedicReturnDTO> findMedicById(@PathVariable Long id) {
+        Medic medic = medicService.findMedicById(id);
+
+        return ResponseEntity.ok(new MedicReturnDTO(medic));
+    }
 }

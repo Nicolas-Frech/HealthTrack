@@ -28,4 +28,8 @@ public class MedicService {
         medic.deleteMedic();
         medicRepository.save(medic);
     }
+
+    public Medic findMedicById(Long id) {
+        return medicRepository.findById(id);
+    }
 }
