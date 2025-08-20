@@ -4,6 +4,8 @@ import br.com.nicolasfrech.HealthTrack.application.medic.gateway.MedicRepository
 import br.com.nicolasfrech.HealthTrack.domain.medic.Medic;
 import br.com.nicolasfrech.HealthTrack.infra.medic.persistence.MedicEntity;
 import br.com.nicolasfrech.HealthTrack.infra.medic.persistence.MedicRepositoryJPA;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public class MedicRepositoryImpl implements MedicRepository {
 
@@ -35,5 +37,11 @@ public class MedicRepositoryImpl implements MedicRepository {
         MedicEntity entity = jpaRepository.getReferenceById(id);
 
         return mapper.toDomain(entity);
+    }
+
+    @Override
+    public Page<Medic> findAllByActiveTrue(Pageable pageable) {
+        Page<MedicEntity> entities = jpaRepository.findAllByActiveTrue(pageable);
+        return entities.map(mapper::toDomain);
     }
 }

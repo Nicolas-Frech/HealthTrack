@@ -1,6 +1,8 @@
 package br.com.nicolasfrech.HealthTrack.application.medic.gateway;
 
 import br.com.nicolasfrech.HealthTrack.domain.medic.Medic;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 public interface MedicRepository {
 
@@ -9,4 +11,6 @@ public interface MedicRepository {
     Medic findByIdAndActiveTrue(Long id);
 
     Medic findById(Long id);
+
+    Page<Medic> findAllByActiveTrue(Pageable pageable);
 }
