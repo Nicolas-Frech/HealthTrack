@@ -5,4 +5,6 @@ import br.com.nicolasfrech.HealthTrack.domain.medic.Medic;
 public interface MedicRepository {
 
     Medic save(Medic medic);
+
+    Medic findByIdAndActiveTrue(Long id);
 }

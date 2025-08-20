@@ -22,4 +22,11 @@ public class MedicRepositoryImpl implements MedicRepository {
         jpaRepository.save(entity);
         return mapper.toDomain(entity);
     }
+
+    @Override
+    public Medic findByIdAndActiveTrue(Long id) {
+        MedicEntity entity = jpaRepository.findByIdAndActiveTrue(id);
+
+        return mapper.toDomain(entity);
+    }
 }

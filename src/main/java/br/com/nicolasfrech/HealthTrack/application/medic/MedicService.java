@@ -21,4 +21,11 @@ public class MedicService {
         medicRepository.save(medic);
         return medic;
     }
+
+    public void deleteMedic(Long id) {
+        Medic medic = medicRepository.findByIdAndActiveTrue(id);
+
+        medic.deleteMedic();
+        medicRepository.save(medic);
+    }
 }
