@@ -17,4 +17,6 @@ public interface PatientRepository {
     boolean existsByCpf(String cpf);
 
     boolean existsByTelephone(String telephone);
+
+    Patient findByCpfAndActiveTrue(String cpf);
 }

@@ -54,4 +54,11 @@ public class MedicRepositoryImpl implements MedicRepository {
     public boolean existsByTelephone(String telephone) {
         return jpaRepository.existsByTelephone(telephone);
     }
+
+    @Override
+    public Medic findByCrmAndActiveTrue(String crm) {
+        MedicEntity entity = jpaRepository.findByCrmAndActiveTrue(crm);
+
+        return mapper.toDomain(entity);
+    }
 }
