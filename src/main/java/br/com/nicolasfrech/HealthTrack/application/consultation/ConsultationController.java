@@ -2,6 +2,7 @@ package br.com.nicolasfrech.HealthTrack.application.consultation;
 
 
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.BookConsultationDTO;
+import br.com.nicolasfrech.HealthTrack.application.consultation.dto.ConsultationReturnDTO;
 import br.com.nicolasfrech.HealthTrack.domain.consultation.Consultation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import java.net.URI;
 
 @RestController
 @RequestMapping("/consultation")
@@ -21,9 +25,11 @@ public class ConsultationController {
 
     @PostMapping
     @Transactional
-    public ResponseEntity bookConsultation(@RequestBody @Valid BookConsultationDTO dto) {
+    public ResponseEntity<ConsultationReturnDTO> bookConsultation(@RequestBody @Valid BookConsultationDTO dto, UriComponentsBuilder uriBuilder) {
         Consultation consultation = consultationService.bookConsultation(dto);
 
-        return null;
+        URI uri = uriBuilder.path("/consultation/{id}").buildAndExpand(consultation.getId()).toUri();
+
+        return ResponseEntity.created(uri).body(new ConsultationReturnDTO(consultation));
     }
 }

@@ -1,6 +1,14 @@
 package br.com.nicolasfrech.HealthTrack.application.consultation.dto;
 
+import jakarta.validation.constraints.NotNull;
+
 import java.time.LocalDateTime;
 
-public record BookConsultationDTO(String medicCRM, String patientCPF, LocalDateTime date) {
+public record BookConsultationDTO(
+        @NotNull
+        String medicCRM,
+        @NotNull
+        String patientCPF,
+        @NotNull
+        LocalDateTime date) {
 }
