@@ -13,4 +13,8 @@ public interface MedicRepository {
     Medic findById(Long id);
 
     Page<Medic> findAllByActiveTrue(Pageable pageable);
+
+    boolean existsByCRM(String crm);
+
+    boolean existsByTelephone(String telephone);
 }
