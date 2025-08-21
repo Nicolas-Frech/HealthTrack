@@ -3,7 +3,7 @@ package br.com.nicolasfrech.HealthTrack.application.medic;
 import br.com.nicolasfrech.HealthTrack.application.medic.dto.MedicRegistDTO;
 import br.com.nicolasfrech.HealthTrack.application.medic.dto.MedicUpdateDTO;
 import br.com.nicolasfrech.HealthTrack.application.medic.gateway.MedicRepository;
-import br.com.nicolasfrech.HealthTrack.application.medic.validation.RegistValidation;
+import br.com.nicolasfrech.HealthTrack.application.medic.validation.MedicRegistValidation;
 import br.com.nicolasfrech.HealthTrack.domain.medic.Medic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,7 +18,7 @@ public class MedicService {
     private final MedicRepository medicRepository;
 
     @Autowired
-    private List<RegistValidation> registerValidations;
+    private List<MedicRegistValidation> registerValidations;
 
     public MedicService(MedicRepository medicRepository) {
         this.medicRepository = medicRepository;

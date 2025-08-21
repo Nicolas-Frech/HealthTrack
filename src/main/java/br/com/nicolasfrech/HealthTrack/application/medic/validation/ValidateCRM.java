@@ -6,7 +6,7 @@ import br.com.nicolasfrech.HealthTrack.infra.exception.ValidateException;
 import org.springframework.stereotype.Component;
 
 @Component
-public class ValidateCRM implements RegistValidation {
+public class ValidateCRM implements MedicRegistValidation {
 
     private final MedicRepository medicRepository;
 
