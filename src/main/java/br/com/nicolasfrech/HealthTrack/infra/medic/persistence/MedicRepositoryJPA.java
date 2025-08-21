@@ -9,4 +9,8 @@ public interface MedicRepositoryJPA extends JpaRepository<MedicEntity, Long> {
     MedicEntity findByIdAndActiveTrue(Long id);
 
     Page<MedicEntity> findAllByActiveTrue(Pageable pageable);
+
+    boolean existsByCrm(String crm);
+
+    boolean existsByTelephone(String telephone);
 }

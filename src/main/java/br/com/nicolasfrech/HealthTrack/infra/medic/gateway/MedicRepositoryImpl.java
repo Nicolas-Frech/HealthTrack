@@ -44,4 +44,14 @@ public class MedicRepositoryImpl implements MedicRepository {
         Page<MedicEntity> entities = jpaRepository.findAllByActiveTrue(pageable);
         return entities.map(mapper::toDomain);
     }
+
+    @Override
+    public boolean existsByCRM(String crm) {
+        return jpaRepository.existsByCrm(crm);
+    }
+
+    @Override
+    public boolean existsByTelephone(String telephone) {
+        return jpaRepository.existsByTelephone(telephone);
+    }
 }
