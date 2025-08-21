@@ -48,4 +48,9 @@ public class PatientRepositoryImpl implements PatientRepository {
     public boolean existsByCpf(String cpf) {
         return jpaRepository.existsByCpf(cpf);
     }
+
+    @Override
+    public boolean existsByTelephone(String telephone) {
+        return jpaRepository.existsByTelephone(telephone);
+    }
 }
