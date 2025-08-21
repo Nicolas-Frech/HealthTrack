@@ -14,4 +14,5 @@ public interface PatientRepository {
 
     Page<Patient> findAllByActiveTrue(Pageable pageable);
 
+    boolean existsByCpf(String cpf);
 }

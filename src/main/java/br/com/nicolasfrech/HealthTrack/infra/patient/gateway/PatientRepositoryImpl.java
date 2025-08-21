@@ -43,4 +43,9 @@ public class PatientRepositoryImpl implements PatientRepository {
         Page<PatientEntity> page = jpaRepository.findAllByActiveTrue(pageable);
         return page.map(mapper::toDomain);
     }
+
+    @Override
+    public boolean existsByCpf(String cpf) {
+        return jpaRepository.existsByCpf(cpf);
+    }
 }
