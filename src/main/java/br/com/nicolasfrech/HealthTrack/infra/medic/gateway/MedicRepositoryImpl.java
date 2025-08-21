@@ -46,7 +46,7 @@ public class MedicRepositoryImpl implements MedicRepository {
     }
 
     @Override
-    public boolean existsByCRM(String crm) {
+    public boolean existsByCrm(String crm) {
         return jpaRepository.existsByCrm(crm);
     }
 

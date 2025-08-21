@@ -18,7 +18,7 @@ public class ValidateCRM implements RegistValidation {
 
     @Override
     public void validate(MedicRegistDTO dto) {
-        if(medicRepository.existsByCRM(dto.crm())) {
+        if(medicRepository.existsByCrm(dto.crm())) {
             throw new ValidateException("Já existe médico registrado com esse CRM!");
         }
     }
