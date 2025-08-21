@@ -1,19 +1,21 @@
-package br.com.nicolasfrech.HealthTrack.application.medic;
+package br.com.nicolasfrech.HealthTrack.application.patient;
+
 
 import br.com.nicolasfrech.HealthTrack.application.medic.dto.MedicRegistDTO;
 import br.com.nicolasfrech.HealthTrack.application.medic.dto.MedicReturnDTO;
-import br.com.nicolasfrech.HealthTrack.application.medic.gateway.MedicRepository;
+import br.com.nicolasfrech.HealthTrack.application.patient.dto.PatientRegistDTO;
+import br.com.nicolasfrech.HealthTrack.application.patient.dto.PatientReturnDTO;
+import br.com.nicolasfrech.HealthTrack.application.patient.gateway.PatientRepository;
 import br.com.nicolasfrech.HealthTrack.domain.medic.Medic;
 import br.com.nicolasfrech.HealthTrack.domain.medic.Speciality;
+import br.com.nicolasfrech.HealthTrack.domain.patient.Patient;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
@@ -27,24 +29,24 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 @SpringBootTest
 @AutoConfigureMockMvc
 @AutoConfigureJsonTesters
-public class MedicControllerTest {
+public class PatientControllerTest {
 
     @Autowired
     private MockMvc mvc;
 
     @Autowired
-    private JacksonTester<MedicRegistDTO> medicRegistDTOJson;
+    private JacksonTester<PatientRegistDTO> patientRegistDTOJson;
 
     @Autowired
-    private JacksonTester<MedicReturnDTO> medicReturnDTOJson;
+    private JacksonTester<PatientReturnDTO> patientReturnDTOJson;
 
     @MockitoBean
-    private MedicRepository medicRepository;
+    private PatientRepository patientRepository;
 
     @Test
     @DisplayName("Should return 400 code when invalid data")
     public void registScenario01() throws Exception {
-        var response = mvc.perform(post("/medic")).andReturn().getResponse();
+        var response = mvc.perform(post("/patient")).andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.BAD_REQUEST.value());
     }
@@ -52,21 +54,22 @@ public class MedicControllerTest {
     @Test
     @DisplayName("Should return 201 code when valid data")
     public void registScenario02() throws Exception {
-        MedicRegistDTO dto = new MedicRegistDTO("name", "SC234567",
-                Speciality.CARDIOLOGIA, "(47) 99993-3937", "email@email.com");
+        PatientRegistDTO dto = new PatientRegistDTO("name", "063.837.709-93", 12,
+                "email@email.com",
+                "(48) 99999-2298");
 
-        when(medicRepository.save(any())).thenReturn(new Medic(dto.name(), dto.crm(), dto.speciality(),
-        dto.telephone(), dto.email()));
+        when(patientRepository.save(any())).thenReturn(new Patient(dto.name(), dto.cpf(), dto.age(),
+                dto.email(), dto.telephone()));
 
-        var response = mvc.perform(post("/medic")
+        var response = mvc.perform(post("/patient")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(medicRegistDTOJson.write(dto).getJson()))
+                        .content(patientRegistDTOJson.write(dto).getJson()))
                 .andReturn().getResponse();
 
-        MedicReturnDTO medicReturnDTO = new MedicReturnDTO(null, dto.name(), dto.crm(),
-        dto.speciality(), dto.telephone(), dto.email(), true);
+        PatientReturnDTO patientReturnDTO = new PatientReturnDTO(null, dto.name(), dto.cpf(),
+                dto.telephone(), dto.age(), dto.email(), true);
 
-        var expectedJson = medicReturnDTOJson.write(medicReturnDTO).getJson();
+        var expectedJson = patientReturnDTOJson.write(patientReturnDTO).getJson();
 
         assertThat(response.getStatus()).isEqualTo(HttpStatus.CREATED.value());
         assertThat(response.getContentAsString()).isEqualToIgnoringWhitespace(expectedJson);
