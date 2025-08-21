@@ -17,7 +17,7 @@ public class ValidateMedicTelephone implements RegistValidation {
 
     @Override
     public void validate(MedicRegistDTO dto) {
-        if(medicRepository.existsByTelephone(dto.crm())) {
+        if(medicRepository.existsByTelephone(dto.telephone())) {
             throw new ValidateException("Já existe médico registrado com esse telefone!");
         }
     }

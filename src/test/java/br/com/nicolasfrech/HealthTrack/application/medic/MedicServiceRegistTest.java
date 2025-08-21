@@ -19,7 +19,7 @@ public class MedicServiceRegistTest {
 
     @Test
     @DisplayName("Should register valid medic")
-    public void medicRegistCenary01() {
+    public void medicRegistScenario01() {
         MedicRegistDTO dto = new MedicRegistDTO("name", "SP123456", Speciality.CARDIOLOGIA,
                 "(47) 99999-0000", "email@email.com");
 
@@ -28,7 +28,7 @@ public class MedicServiceRegistTest {
 
     @Test
     @DisplayName("Should not register medic with invalid CRM")
-    public void medicRegistCenary02() {
+    public void medicRegistScenario02() {
         MedicRegistDTO dto = new MedicRegistDTO("name", "SP12", Speciality.CARDIOLOGIA,
                 "(47) 99999-0000", "email@email.com");
 
@@ -37,8 +37,8 @@ public class MedicServiceRegistTest {
 
     @Test
     @DisplayName("Should not register medic with invalid telephone")
-    public void medicRegistCenary03() {
-        MedicRegistDTO dto = new MedicRegistDTO("name", "SP12", Speciality.CARDIOLOGIA,
+    public void medicRegistScenario03() {
+        MedicRegistDTO dto = new MedicRegistDTO("name", "SP123456", Speciality.CARDIOLOGIA,
                 "(47) 9999", "email@email.com");
 
         assertThrows(IllegalArgumentException.class, () -> medicService.registMedic(dto));
@@ -46,9 +46,9 @@ public class MedicServiceRegistTest {
 
     @Test
     @DisplayName("Should not register medic with invalid email")
-    public void medicRegistCenary04() {
-        MedicRegistDTO dto = new MedicRegistDTO("name", "SP12", Speciality.CARDIOLOGIA,
-                "(47) 9999", "email.com");
+    public void medicRegistScenario04() {
+        MedicRegistDTO dto = new MedicRegistDTO("name", "SP123456", Speciality.CARDIOLOGIA,
+                "(47) 99999-8989", "email.com");
 
         assertThrows(IllegalArgumentException.class, () -> medicService.registMedic(dto));
     }

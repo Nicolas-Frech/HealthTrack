@@ -17,7 +17,7 @@ public class PatientServiceRegistTest {
 
     @Test
     @DisplayName("Should register valid Patient")
-    void registPatientCenary01() {
+    void registPatientScenario01() {
         PatientRegistDTO dto = new PatientRegistDTO("name","123.456.789-00", 18, "email@email.com", "(48) 99456-3021");
 
         assertDoesNotThrow(() -> patientService.registPatient(dto));
@@ -25,7 +25,7 @@ public class PatientServiceRegistTest {
 
     @Test
     @DisplayName("Should not register invalid cpf")
-    void registPatientCenary02() {
+    void registPatientScenario02() {
         PatientRegistDTO dto = new PatientRegistDTO("name","12456.789-00", 18, "email@email.com", "(48) 99456-3021");
 
         assertThrows(IllegalArgumentException.class, () -> patientService.registPatient(dto));
@@ -33,7 +33,7 @@ public class PatientServiceRegistTest {
 
     @Test
     @DisplayName("Should not register invalid email")
-    void registPatientCenary03() {
+    void registPatientScenario03() {
         PatientRegistDTO dto = new PatientRegistDTO("name","124.556.789-00", 18, "emailemail.com", "(48) 99456-3021");
 
         assertThrows(IllegalArgumentException.class, () -> patientService.registPatient(dto));
@@ -41,7 +41,7 @@ public class PatientServiceRegistTest {
 
     @Test
     @DisplayName("Should not register invalid telephone")
-    void registPatientCenary04() {
+    void registPatientScenario04() {
         PatientRegistDTO dto = new PatientRegistDTO("name","124.556.789-00", 18, "emailemail.com", "946-3021");
 
         assertThrows(IllegalArgumentException.class, () -> patientService.registPatient(dto));

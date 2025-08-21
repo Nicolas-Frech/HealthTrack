@@ -27,7 +27,7 @@ public class PatientServiceUpdateTest {
 
     @Test
     @DisplayName("Should update valid Patient")
-    void updatePatientCenary01() {
+    void updatePatientScenario01() {
         // Arrange
         Patient patient = new Patient("John Doe", "123.456.789-00", 30, "john@email.com", "(48)99999-9999");
 
