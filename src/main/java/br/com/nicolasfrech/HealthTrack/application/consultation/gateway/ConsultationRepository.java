@@ -10,4 +10,6 @@ public interface ConsultationRepository {
     Consultation save(Consultation consultation);
 
     boolean existsByPatientIdAndDateAndStatus(Long id, LocalDateTime date, ConsultationStatus consultationStatus);
+
+    boolean existsByMedicIdAndDateAndStatus(Long id, LocalDateTime date, ConsultationStatus consultationStatus);
 }

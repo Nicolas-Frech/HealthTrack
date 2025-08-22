@@ -30,4 +30,9 @@ public class ConsultationRepositoryImpl implements ConsultationRepository {
     public boolean existsByPatientIdAndDateAndStatus(Long id, LocalDateTime date, ConsultationStatus consultationStatus) {
         return jpaRepository.existsByPatientIdAndDateAndStatus(id, date, consultationStatus);
     }
+
+    @Override
+    public boolean existsByMedicIdAndDateAndStatus(Long id, LocalDateTime date, ConsultationStatus consultationStatus) {
+        return jpaRepository.existsByMedicIdAndDateAndStatus(id, date, consultationStatus);
+    }
 }
