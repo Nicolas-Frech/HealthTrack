@@ -5,19 +5,17 @@ import br.com.nicolasfrech.HealthTrack.application.consultation.validation.bookC
 import br.com.nicolasfrech.HealthTrack.infra.exception.ValidateException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
+
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@SpringBootTest
+
 public class ValidateAdvanceNoticeTest {
 
-    @Autowired
-    private ValidateAdvanceNotice validateAdvanceNotice;
+    private ValidateAdvanceNotice validateAdvanceNotice = new ValidateAdvanceNotice();
 
     @Test
     @DisplayName("Should book consultation with 1 hour advance notice")

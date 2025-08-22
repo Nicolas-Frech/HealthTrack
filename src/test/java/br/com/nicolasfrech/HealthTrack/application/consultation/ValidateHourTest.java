@@ -5,20 +5,15 @@ import br.com.nicolasfrech.HealthTrack.application.consultation.validation.bookC
 import br.com.nicolasfrech.HealthTrack.infra.exception.ValidateException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@SpringBootTest
 public class ValidateHourTest {
 
-    @Autowired
-    private ValidateHour validateHour;
+    private ValidateHour validateHour = new ValidateHour();
 
     @Test
     @DisplayName("Should book consultation inside allowed hours")
