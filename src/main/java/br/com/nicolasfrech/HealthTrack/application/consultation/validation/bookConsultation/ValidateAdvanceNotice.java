@@ -14,9 +14,9 @@ public class ValidateAdvanceNotice implements BookConsultationValidation {
     public void validate(BookConsultationDTO dto) {
         LocalDateTime consultationDate = dto.date();
         LocalDateTime now = LocalDateTime.now();
-        var diferenceBetween = Duration.between(consultationDate, now).toHours();
+        var diferenceBetween = Duration.between(now, consultationDate).toHours();
 
-        if(diferenceBetween < 60) {
+        if(diferenceBetween < 1) {
             throw new ValidateException("Consulta deve ser agendada com no mínimo 1 hora de antecedência!");
         }
     }
