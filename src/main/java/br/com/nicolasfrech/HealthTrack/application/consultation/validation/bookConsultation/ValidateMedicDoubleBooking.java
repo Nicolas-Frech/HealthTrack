@@ -3,10 +3,8 @@ package br.com.nicolasfrech.HealthTrack.application.consultation.validation.book
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.BookConsultationDTO;
 import br.com.nicolasfrech.HealthTrack.application.consultation.gateway.ConsultationRepository;
 import br.com.nicolasfrech.HealthTrack.application.medic.gateway.MedicRepository;
-import br.com.nicolasfrech.HealthTrack.application.patient.gateway.PatientRepository;
 import br.com.nicolasfrech.HealthTrack.domain.consultation.ConsultationStatus;
 import br.com.nicolasfrech.HealthTrack.domain.medic.Medic;
-import br.com.nicolasfrech.HealthTrack.domain.patient.Patient;
 import br.com.nicolasfrech.HealthTrack.infra.exception.ValidateException;
 import org.springframework.stereotype.Component;
 
