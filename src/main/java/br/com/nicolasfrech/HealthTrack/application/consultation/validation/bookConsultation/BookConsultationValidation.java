@@ -1,4 +1,4 @@
-package br.com.nicolasfrech.HealthTrack.application.consultation.validation;
+package br.com.nicolasfrech.HealthTrack.application.consultation.validation.bookConsultation;
 
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.BookConsultationDTO;
 

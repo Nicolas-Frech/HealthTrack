@@ -19,4 +19,6 @@ public interface MedicRepository {
     boolean existsByTelephone(String telephone);
 
     Medic findByCrmAndActiveTrue(String crm);
+
+    boolean existsByCrmAndActiveTrue(String crm);
 }

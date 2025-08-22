@@ -15,4 +15,6 @@ public interface PatientRepositoryJPA extends JpaRepository<PatientEntity, Long>
     boolean existsByTelephone(String telephone);
 
     PatientEntity findByCpfAndActiveTrue(String cpf);
+
+    boolean existsByCpfAndActiveTrue(String cpf);
 }

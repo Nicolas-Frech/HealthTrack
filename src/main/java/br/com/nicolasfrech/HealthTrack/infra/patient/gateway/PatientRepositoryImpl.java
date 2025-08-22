@@ -60,4 +60,9 @@ public class PatientRepositoryImpl implements PatientRepository {
 
         return mapper.toDomain(entity);
     }
+
+    @Override
+    public boolean existsByCpfAndActiveTrue(String cpf) {
+        return jpaRepository.existsByCpfAndActiveTrue(cpf);
+    }
 }

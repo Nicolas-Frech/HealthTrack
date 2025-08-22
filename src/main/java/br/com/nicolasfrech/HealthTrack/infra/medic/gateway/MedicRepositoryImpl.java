@@ -61,4 +61,9 @@ public class MedicRepositoryImpl implements MedicRepository {
 
         return mapper.toDomain(entity);
     }
+
+    @Override
+    public boolean existsByCrmAndActiveTrue(String crm) {
+        return jpaRepository.existsByCrmAndActiveTrue(crm);
+    }
 }

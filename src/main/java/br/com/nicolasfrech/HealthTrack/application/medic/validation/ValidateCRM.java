@@ -10,11 +10,9 @@ public class ValidateCRM implements MedicRegistValidation {
 
     private final MedicRepository medicRepository;
 
-
     public ValidateCRM(MedicRepository medicRepository) {
         this.medicRepository = medicRepository;
     }
-
 
     @Override
     public void validate(MedicRegistDTO dto) {

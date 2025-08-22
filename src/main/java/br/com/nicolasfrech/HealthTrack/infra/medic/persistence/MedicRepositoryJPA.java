@@ -15,4 +15,6 @@ public interface MedicRepositoryJPA extends JpaRepository<MedicEntity, Long> {
     boolean existsByTelephone(String telephone);
 
     MedicEntity findByCrmAndActiveTrue(String crm);
+
+    boolean existsByCrmAndActiveTrue(String crm);
 }
