@@ -1,6 +1,8 @@
 package br.com.nicolasfrech.HealthTrack.application.consultation.config;
 
+import br.com.nicolasfrech.HealthTrack.infra.consultation.gateway.ConsultationEntityMapper;
 import br.com.nicolasfrech.HealthTrack.infra.consultation.gateway.ConsultationRepositoryImpl;
+import br.com.nicolasfrech.HealthTrack.infra.consultation.persistence.ConsultationRepositoryJPA;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -8,7 +10,7 @@ import org.springframework.context.annotation.Configuration;
 public class ConsultationConfig {
 
     @Bean
-    ConsultationRepositoryImpl createConsultationRepositoryImpl() {
-        return new ConsultationRepositoryImpl();
+    ConsultationRepositoryImpl createConsultationRepositoryImpl(ConsultationRepositoryJPA jpa, ConsultationEntityMapper mapper) {
+        return new ConsultationRepositoryImpl(jpa, mapper);
     }
 }
