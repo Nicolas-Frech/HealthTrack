@@ -13,4 +13,9 @@ public class ConsultationConfig {
     ConsultationRepositoryImpl createConsultationRepositoryImpl(ConsultationRepositoryJPA jpa, ConsultationEntityMapper mapper) {
         return new ConsultationRepositoryImpl(jpa, mapper);
     }
+
+    @Bean
+    ConsultationEntityMapper createConsultationEntityMapper() {
+        return new ConsultationEntityMapper();
+    }
 }

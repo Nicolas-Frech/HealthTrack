@@ -27,6 +27,8 @@ public class ConsultationService {
         Patient patient = patientRepository.findByCpfAndActiveTrue(dto.patientCPF());
 
         Consultation consultation = new Consultation(medic.getId(), patient.getId(), dto.date());
+
+        consultationRepository.save(consultation);
         return consultation;
     }
 }
