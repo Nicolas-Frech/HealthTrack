@@ -6,7 +6,6 @@ import br.com.nicolasfrech.HealthTrack.application.consultation.dto.ChangeDateDT
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.ConsultationReturnDTO;
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.UpdateStatusDTO;
 import br.com.nicolasfrech.HealthTrack.domain.consultation.Consultation;
-import br.com.nicolasfrech.HealthTrack.domain.consultation.ConsultationStatus;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +41,7 @@ public class ConsultationController {
     }
 
     @PutMapping("/{id}/date")
-    @@Transactional
+    @Transactional
     public ResponseEntity<ConsultationReturnDTO> changeConsultationDate(@PathVariable Long id, @RequestBody @Valid ChangeDateDTO date) {
         Consultation consultation = consultationService.changeConsultationDate(id, date);
 

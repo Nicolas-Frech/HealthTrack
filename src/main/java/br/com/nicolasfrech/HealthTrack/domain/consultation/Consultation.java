@@ -38,6 +38,12 @@ public class Consultation {
         }
     }
 
+    public void changeDate(LocalDateTime date) {
+        if(date != null) {
+            this.date = date;
+        }
+    }
+
     public Long getId() {
         return id;
     }

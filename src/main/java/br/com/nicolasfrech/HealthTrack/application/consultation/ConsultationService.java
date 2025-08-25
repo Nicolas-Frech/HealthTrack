@@ -58,6 +58,11 @@ public class ConsultationService {
     }
 
     public Consultation changeConsultationDate(Long id, ChangeDateDTO date) {
-        return null;
+        Consultation consultation = consultationRepository.getReferenceById(id);
+
+        consultation.changeDate(date.date());
+
+        consultationRepository.save(consultation);
+        return consultation;
     }
 }
