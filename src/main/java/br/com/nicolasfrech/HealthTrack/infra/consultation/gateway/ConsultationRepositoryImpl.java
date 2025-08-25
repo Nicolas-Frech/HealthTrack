@@ -35,4 +35,11 @@ public class ConsultationRepositoryImpl implements ConsultationRepository {
     public boolean existsByMedicIdAndDateAndStatus(Long id, LocalDateTime date, ConsultationStatus consultationStatus) {
         return jpaRepository.existsByMedicIdAndDateAndStatus(id, date, consultationStatus);
     }
+
+    @Override
+    public Consultation getReferenceById(Long id) {
+        ConsultationEntity entity = jpaRepository.getReferenceById(id);
+
+        return mapper.toDomain(entity);
+    }
 }

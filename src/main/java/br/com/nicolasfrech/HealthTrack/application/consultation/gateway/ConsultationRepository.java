@@ -12,4 +12,6 @@ public interface ConsultationRepository {
     boolean existsByPatientIdAndDateAndStatus(Long id, LocalDateTime date, ConsultationStatus consultationStatus);
 
     boolean existsByMedicIdAndDateAndStatus(Long id, LocalDateTime date, ConsultationStatus consultationStatus);
+
+    Consultation getReferenceById(Long id);
 }

@@ -32,6 +32,12 @@ public class Consultation {
         this.status = ConsultationStatus.SCHEDULED;
     }
 
+    public void updateStatus(ConsultationStatus status) {
+        if(status != null) {
+            this.status = status;
+        }
+    }
+
     public Long getId() {
         return id;
     }

@@ -34,6 +34,6 @@ public class ConsultationController {
     @PutMapping
     @Transactional
     public ResponseEntity<ConsultationReturnDTO> updateConsultationStatus(@RequestBody @Valid UpdateConsultationDTO dto) {
-        return null;
+        Consultation consultation = consultationService.updateConsultationStatus(dto);
     }
 }

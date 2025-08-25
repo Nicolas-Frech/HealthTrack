@@ -1,11 +1,13 @@
 package br.com.nicolasfrech.HealthTrack.application.consultation;
 
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.BookConsultationDTO;
+import br.com.nicolasfrech.HealthTrack.application.consultation.dto.UpdateConsultationDTO;
 import br.com.nicolasfrech.HealthTrack.application.consultation.gateway.ConsultationRepository;
 import br.com.nicolasfrech.HealthTrack.application.consultation.validation.bookConsultation.BookConsultationValidation;
 import br.com.nicolasfrech.HealthTrack.application.medic.gateway.MedicRepository;
 import br.com.nicolasfrech.HealthTrack.application.patient.gateway.PatientRepository;
 import br.com.nicolasfrech.HealthTrack.domain.consultation.Consultation;
+import br.com.nicolasfrech.HealthTrack.domain.consultation.ConsultationStatus;
 import br.com.nicolasfrech.HealthTrack.domain.medic.Medic;
 import br.com.nicolasfrech.HealthTrack.domain.patient.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +38,14 @@ public class ConsultationService {
         Patient patient = patientRepository.findByCpfAndActiveTrue(dto.patientCPF());
 
         Consultation consultation = new Consultation(medic.getId(), patient.getId(), dto.date());
+
+        consultationRepository.save(consultation);
+        return consultation;
+    }
+
+    public Consultation updateConsultationStatus(UpdateConsultationDTO dto) {
+        Consultation consultation = consultationRepository.getReferenceById(dto.id());
+        consultation.updateStatus(dto.status());
 
         consultationRepository.save(consultation);
         return consultation;
