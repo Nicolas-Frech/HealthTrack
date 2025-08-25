@@ -43,9 +43,9 @@ public class ConsultationService {
         return consultation;
     }
 
-    public Consultation updateConsultationStatus(UpdateConsultationDTO dto) {
-        Consultation consultation = consultationRepository.getReferenceById(dto.id());
-        consultation.updateStatus(dto.status());
+    public Consultation updateConsultationStatus(Long id, ConsultationStatus status) {
+        Consultation consultation = consultationRepository.getReferenceById(id);
+        consultation.updateStatus(status);
 
         consultationRepository.save(consultation);
         return consultation;

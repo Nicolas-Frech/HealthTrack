@@ -5,6 +5,7 @@ import br.com.nicolasfrech.HealthTrack.application.consultation.dto.BookConsulta
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.ConsultationReturnDTO;
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.UpdateConsultationDTO;
 import br.com.nicolasfrech.HealthTrack.domain.consultation.Consultation;
+import br.com.nicolasfrech.HealthTrack.domain.consultation.ConsultationStatus;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +32,11 @@ public class ConsultationController {
         return ResponseEntity.created(uri).body(new ConsultationReturnDTO(consultation));
     }
 
-    @PutMapping
+    @PutMapping("/{id}/status")
     @Transactional
-    public ResponseEntity<ConsultationReturnDTO> updateConsultationStatus(@RequestBody @Valid UpdateConsultationDTO dto) {
-        Consultation consultation = consultationService.updateConsultationStatus(dto);
+    public ResponseEntity<ConsultationReturnDTO> updateConsultationStatus(@PathVariable Long id, @RequestBody @Valid ConsultationStatus status) {
+        Consultation consultation = consultationService.updateConsultationStatus(id, status);
+
+        return ResponseEntity.ok(new ConsultationReturnDTO(consultation));
     }
 }
