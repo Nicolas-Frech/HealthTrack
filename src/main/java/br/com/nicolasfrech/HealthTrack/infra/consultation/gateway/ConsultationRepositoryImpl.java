@@ -50,4 +50,11 @@ public class ConsultationRepositoryImpl implements ConsultationRepository {
         Page<ConsultationEntity> page = jpaRepository.findAll(pageable);
         return page.map(mapper::toDomain);
     }
+
+    @Override
+    public Page<Consultation> findAllByMedicId(Pageable pageable, Long id) {
+        Page<ConsultationEntity> page = jpaRepository.findAllByMedicId(pageable, id);
+
+        return page.map(mapper::toDomain);
+    }
 }

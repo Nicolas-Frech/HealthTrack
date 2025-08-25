@@ -63,4 +63,14 @@ public class ConsultationController {
 
         return ResponseEntity.ok(page);
     }
+
+    @GetMapping("/medic/{id}")
+    public ResponseEntity<Page<ConsultationReturnDTO>> findAllByMedicId(
+            @PageableDefault(size = 10, sort = {"date"}) Pageable pageable,
+            @PathVariable Long id) {
+        Page<ConsultationReturnDTO> page = consultationService.findAllByMedicId(pageable, id)
+                .map(ConsultationReturnDTO::new);
+
+        return ResponseEntity.ok(page);
+    }
 }

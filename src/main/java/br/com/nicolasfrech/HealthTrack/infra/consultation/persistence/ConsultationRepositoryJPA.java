@@ -11,4 +11,6 @@ public interface ConsultationRepositoryJPA extends JpaRepository<ConsultationEnt
     boolean existsByPatientIdAndDateAndStatus(Long id, LocalDateTime date, ConsultationStatus consultationStatus);
 
     boolean existsByMedicIdAndDateAndStatus(Long id, LocalDateTime date, ConsultationStatus consultationStatus);
+
+    Page<ConsultationEntity> findAllByMedicId(Pageable pageable, Long id);
 }

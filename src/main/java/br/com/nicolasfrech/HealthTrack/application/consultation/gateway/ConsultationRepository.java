@@ -18,4 +18,6 @@ public interface ConsultationRepository {
     Consultation getReferenceById(Long id);
 
     Page<Consultation> findAll(Pageable pageable);
+
+    Page<Consultation> findAllByMedicId(Pageable pageable, Long id);
 }
