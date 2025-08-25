@@ -1,7 +1,7 @@
 package br.com.nicolasfrech.HealthTrack.application.consultation;
 
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.BookConsultationDTO;
-import br.com.nicolasfrech.HealthTrack.application.consultation.dto.UpdateConsultationDTO;
+import br.com.nicolasfrech.HealthTrack.application.consultation.dto.UpdateStatusDTO;
 import br.com.nicolasfrech.HealthTrack.application.consultation.gateway.ConsultationRepository;
 import br.com.nicolasfrech.HealthTrack.application.consultation.validation.bookConsultation.BookConsultationValidation;
 import br.com.nicolasfrech.HealthTrack.application.medic.gateway.MedicRepository;
@@ -43,9 +43,9 @@ public class ConsultationService {
         return consultation;
     }
 
-    public Consultation updateConsultationStatus(Long id, ConsultationStatus status) {
+    public Consultation updateConsultationStatus(Long id, UpdateStatusDTO status) {
         Consultation consultation = consultationRepository.getReferenceById(id);
-        consultation.updateStatus(status);
+        consultation.updateStatus(status.status());
 
         consultationRepository.save(consultation);
         return consultation;

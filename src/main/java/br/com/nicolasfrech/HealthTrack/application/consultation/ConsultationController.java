@@ -3,7 +3,7 @@ package br.com.nicolasfrech.HealthTrack.application.consultation;
 
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.BookConsultationDTO;
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.ConsultationReturnDTO;
-import br.com.nicolasfrech.HealthTrack.application.consultation.dto.UpdateConsultationDTO;
+import br.com.nicolasfrech.HealthTrack.application.consultation.dto.UpdateStatusDTO;
 import br.com.nicolasfrech.HealthTrack.domain.consultation.Consultation;
 import br.com.nicolasfrech.HealthTrack.domain.consultation.ConsultationStatus;
 import jakarta.validation.Valid;
@@ -34,7 +34,7 @@ public class ConsultationController {
 
     @PutMapping("/{id}/status")
     @Transactional
-    public ResponseEntity<ConsultationReturnDTO> updateConsultationStatus(@PathVariable Long id, @RequestBody @Valid ConsultationStatus status) {
+    public ResponseEntity<ConsultationReturnDTO> updateConsultationStatus(@PathVariable Long id, @RequestBody @Valid UpdateStatusDTO status) {
         Consultation consultation = consultationService.updateConsultationStatus(id, status);
 
         return ResponseEntity.ok(new ConsultationReturnDTO(consultation));
