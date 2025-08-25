@@ -9,15 +9,20 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-public class ValidateCancelStatus implements UpdateStatusValidation {
-
+public class ValidateCompleteStatus implements UpdateStatusValidation {
 
     @Override
     public void validate(Consultation consultation, UpdateStatusDTO dto) {
-        if (dto.status() == ConsultationStatus.CANCELED) {
-            if (consultation.getDate().minusHours(24).isBefore(LocalDateTime.now())) {
-                throw new ValidateException("Não é possível cancelar com menos de 24h de antecedência!");
-            }
+        if (dto.status() != ConsultationStatus.COMPLETED) {
+            return;
+        }
+
+        if (consultation.getDate().isAfter(LocalDateTime.now())) {
+            throw new ValidateException("Não é possível concluir uma consulta antes do horário agendado!");
+        }
+
+        if (consultation.getStatus() == ConsultationStatus.CANCELED) {
+            throw new ValidateException("Não é possível concluir uma consulta já cancelada!");
         }
     }
 }
