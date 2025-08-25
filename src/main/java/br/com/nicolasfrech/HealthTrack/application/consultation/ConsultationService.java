@@ -4,6 +4,7 @@ import br.com.nicolasfrech.HealthTrack.application.consultation.dto.BookConsulta
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.UpdateStatusDTO;
 import br.com.nicolasfrech.HealthTrack.application.consultation.gateway.ConsultationRepository;
 import br.com.nicolasfrech.HealthTrack.application.consultation.validation.bookConsultation.BookConsultationValidation;
+import br.com.nicolasfrech.HealthTrack.application.consultation.validation.updateStatus.UpdateStatusValidation;
 import br.com.nicolasfrech.HealthTrack.application.medic.gateway.MedicRepository;
 import br.com.nicolasfrech.HealthTrack.application.patient.gateway.PatientRepository;
 import br.com.nicolasfrech.HealthTrack.domain.consultation.Consultation;
@@ -25,6 +26,9 @@ public class ConsultationService {
     @Autowired
     private List<BookConsultationValidation> bookConsultationValidations;
 
+    @Autowired
+    private List<UpdateStatusValidation> updateStatusValidations;
+
     public ConsultationService(ConsultationRepository consultationRepository, MedicRepository medicRepository, PatientRepository patientRepository) {
         this.consultationRepository = consultationRepository;
         this.medicRepository = medicRepository;
@@ -45,6 +49,7 @@ public class ConsultationService {
 
     public Consultation updateConsultationStatus(Long id, UpdateStatusDTO status) {
         Consultation consultation = consultationRepository.getReferenceById(id);
+        updateStatusValidations.forEach(v -> v.validate(consultation, status));
         consultation.updateStatus(status.status());
 
         consultationRepository.save(consultation);
