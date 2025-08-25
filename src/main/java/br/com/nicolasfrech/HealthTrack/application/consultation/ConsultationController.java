@@ -1,10 +1,7 @@
 package br.com.nicolasfrech.HealthTrack.application.consultation;
 
 
-import br.com.nicolasfrech.HealthTrack.application.consultation.dto.BookConsultationDTO;
-import br.com.nicolasfrech.HealthTrack.application.consultation.dto.ChangeDateDTO;
-import br.com.nicolasfrech.HealthTrack.application.consultation.dto.ConsultationReturnDTO;
-import br.com.nicolasfrech.HealthTrack.application.consultation.dto.UpdateStatusDTO;
+import br.com.nicolasfrech.HealthTrack.application.consultation.dto.*;
 import br.com.nicolasfrech.HealthTrack.domain.consultation.Consultation;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +41,14 @@ public class ConsultationController {
     @Transactional
     public ResponseEntity<ConsultationReturnDTO> changeConsultationDate(@PathVariable Long id, @RequestBody @Valid ChangeDateDTO date) {
         Consultation consultation = consultationService.changeConsultationDate(id, date);
+
+        return ResponseEntity.ok(new ConsultationReturnDTO(consultation));
+    }
+
+    @PutMapping("/{id}/notes")
+    @Transactional
+    public ResponseEntity<ConsultationReturnDTO> addConsultationNotes(@PathVariable Long id, @RequestBody ConsultationNotesDTO dto) {
+        Consultation consultation = consultationService.addConsultationNotes(id, dto);
 
         return ResponseEntity.ok(new ConsultationReturnDTO(consultation));
     }

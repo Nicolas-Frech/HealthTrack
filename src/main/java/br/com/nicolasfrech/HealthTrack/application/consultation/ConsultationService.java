@@ -2,6 +2,7 @@ package br.com.nicolasfrech.HealthTrack.application.consultation;
 
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.BookConsultationDTO;
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.ChangeDateDTO;
+import br.com.nicolasfrech.HealthTrack.application.consultation.dto.ConsultationNotesDTO;
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.UpdateStatusDTO;
 import br.com.nicolasfrech.HealthTrack.application.consultation.gateway.ConsultationRepository;
 import br.com.nicolasfrech.HealthTrack.application.consultation.validation.bookConsultation.BookConsultationValidation;
@@ -67,6 +68,16 @@ public class ConsultationService {
         hourValidations.forEach(v -> v.validate(consultation, date.date()));
 
         consultation.changeDate(date.date());
+
+        consultationRepository.save(consultation);
+        return consultation;
+    }
+
+    public Consultation addConsultationNotes(Long id, ConsultationNotesDTO dto) {
+        Consultation consultation = consultationRepository.getReferenceById(id);
+
+        consultation.addNotes(dto.notes());
+        consultation.addPrescription(dto.prescription());
 
         consultationRepository.save(consultation);
         return consultation;

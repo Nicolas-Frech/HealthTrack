@@ -5,9 +5,9 @@ import br.com.nicolasfrech.HealthTrack.domain.consultation.ConsultationStatus;
 
 import java.time.LocalDateTime;
 
-public record ConsultationReturnDTO(Long id, Long medicId, Long patientId, LocalDateTime date, ConsultationStatus status) {
+public record ConsultationReturnDTO(Long id, Long medicId, Long patientId, LocalDateTime date, ConsultationStatus status, String notes, String prescription) {
     public ConsultationReturnDTO(Consultation consultation) {
         this(consultation.getId(), consultation.getMedicId(), consultation.getPatientId(), consultation.getDate(),
-                consultation.getStatus());
+                consultation.getStatus(), consultation.getNotes(), consultation.getPrescription());
     }
 }

@@ -44,6 +44,18 @@ public class Consultation {
         }
     }
 
+    public void addNotes(String notes) {
+        if(notes != null && !notes.isBlank()) {
+            this.notes = notes;
+        }
+    }
+
+    public void addPrescription(String prescription) {
+        if(prescription != null && !prescription.isBlank()) {
+            this.prescription = prescription;
+        }
+    }
+
     public Long getId() {
         return id;
     }
