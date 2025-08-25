@@ -1,7 +1,6 @@
-package br.com.nicolasfrech.HealthTrack.application.consultation;
+package br.com.nicolasfrech.HealthTrack.application.consultation.validation.bookConsultation;
 
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.BookConsultationDTO;
-import br.com.nicolasfrech.HealthTrack.application.consultation.validation.bookConsultation.ValidateHour;
 import br.com.nicolasfrech.HealthTrack.infra.exception.ValidateException;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
