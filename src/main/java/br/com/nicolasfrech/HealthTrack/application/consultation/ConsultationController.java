@@ -2,6 +2,7 @@ package br.com.nicolasfrech.HealthTrack.application.consultation;
 
 
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.BookConsultationDTO;
+import br.com.nicolasfrech.HealthTrack.application.consultation.dto.ChangeDateDTO;
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.ConsultationReturnDTO;
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.UpdateStatusDTO;
 import br.com.nicolasfrech.HealthTrack.domain.consultation.Consultation;
@@ -36,6 +37,14 @@ public class ConsultationController {
     @Transactional
     public ResponseEntity<ConsultationReturnDTO> updateConsultationStatus(@PathVariable Long id, @RequestBody @Valid UpdateStatusDTO status) {
         Consultation consultation = consultationService.updateConsultationStatus(id, status);
+
+        return ResponseEntity.ok(new ConsultationReturnDTO(consultation));
+    }
+
+    @PutMapping("/{id}/date")
+    @@Transactional
+    public ResponseEntity<ConsultationReturnDTO> changeConsultationDate(@PathVariable Long id, @RequestBody @Valid ChangeDateDTO date) {
+        Consultation consultation = consultationService.changeConsultationDate(id, date);
 
         return ResponseEntity.ok(new ConsultationReturnDTO(consultation));
     }

@@ -1,6 +1,7 @@
 package br.com.nicolasfrech.HealthTrack.application.consultation;
 
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.BookConsultationDTO;
+import br.com.nicolasfrech.HealthTrack.application.consultation.dto.ChangeDateDTO;
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.UpdateStatusDTO;
 import br.com.nicolasfrech.HealthTrack.application.consultation.gateway.ConsultationRepository;
 import br.com.nicolasfrech.HealthTrack.application.consultation.validation.bookConsultation.BookConsultationValidation;
@@ -54,5 +55,9 @@ public class ConsultationService {
 
         consultationRepository.save(consultation);
         return consultation;
+    }
+
+    public Consultation changeConsultationDate(Long id, ChangeDateDTO date) {
+        return null;
     }
 }
