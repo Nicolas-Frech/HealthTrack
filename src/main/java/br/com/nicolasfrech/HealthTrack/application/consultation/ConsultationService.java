@@ -1,9 +1,6 @@
 package br.com.nicolasfrech.HealthTrack.application.consultation;
 
-import br.com.nicolasfrech.HealthTrack.application.consultation.dto.BookConsultationDTO;
-import br.com.nicolasfrech.HealthTrack.application.consultation.dto.ChangeDateDTO;
-import br.com.nicolasfrech.HealthTrack.application.consultation.dto.ConsultationNotesDTO;
-import br.com.nicolasfrech.HealthTrack.application.consultation.dto.UpdateStatusDTO;
+import br.com.nicolasfrech.HealthTrack.application.consultation.dto.*;
 import br.com.nicolasfrech.HealthTrack.application.consultation.gateway.ConsultationRepository;
 import br.com.nicolasfrech.HealthTrack.application.consultation.validation.bookConsultation.BookConsultationValidation;
 import br.com.nicolasfrech.HealthTrack.application.consultation.validation.hourValidation.HourValidation;
@@ -15,6 +12,8 @@ import br.com.nicolasfrech.HealthTrack.domain.consultation.ConsultationStatus;
 import br.com.nicolasfrech.HealthTrack.domain.medic.Medic;
 import br.com.nicolasfrech.HealthTrack.domain.patient.Patient;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -81,5 +80,9 @@ public class ConsultationService {
 
         consultationRepository.save(consultation);
         return consultation;
+    }
+
+    public Page<Consultation> findAllConsultations(Pageable pageable) {
+        return consultationRepository.findAll(pageable);
     }
 }

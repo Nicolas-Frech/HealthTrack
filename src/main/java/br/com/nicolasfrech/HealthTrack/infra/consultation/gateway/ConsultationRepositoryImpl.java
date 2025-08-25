@@ -5,6 +5,8 @@ import br.com.nicolasfrech.HealthTrack.domain.consultation.Consultation;
 import br.com.nicolasfrech.HealthTrack.domain.consultation.ConsultationStatus;
 import br.com.nicolasfrech.HealthTrack.infra.consultation.persistence.ConsultationEntity;
 import br.com.nicolasfrech.HealthTrack.infra.consultation.persistence.ConsultationRepositoryJPA;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.time.LocalDateTime;
 
@@ -41,5 +43,11 @@ public class ConsultationRepositoryImpl implements ConsultationRepository {
         ConsultationEntity entity = jpaRepository.getReferenceById(id);
 
         return mapper.toDomain(entity);
+    }
+
+    @Override
+    public Page<Consultation> findAll(Pageable pageable) {
+        Page<ConsultationEntity> page = jpaRepository.findAll(pageable);
+        return page.map(mapper::toDomain);
     }
 }
