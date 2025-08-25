@@ -15,24 +15,24 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-public class ValidateMedicDoubleBookingTest {
+public class ValidatePatientDoubleBookingTest {
 
     private ConsultationRepository consultationRepository;
-    private ValidateMedicDoubleBooking validate;
+    private ValidatePatientDoubleBooking validate;
 
     @BeforeEach
     public void setup() {
         consultationRepository = mock(ConsultationRepository.class);
-        validate = new ValidateMedicDoubleBooking(consultationRepository);
+        validate = new ValidatePatientDoubleBooking(consultationRepository);
     }
 
     @Test
-    @DisplayName("Should pass when doctor has no other consultation at the same time")
-    public void doctorAvailable() {
+    @DisplayName("Should pass when patient has no other consultation at the same time")
+    public void patientAvailable() {
         Consultation consultation = new Consultation(1L, 1L, LocalDateTime.of(2025, 8, 25, 10, 0));
 
-        when(consultationRepository.existsByMedicIdAndDateAndStatus(
-                consultation.getMedicId(),
+        when(consultationRepository.existsByPatientIdAndDateAndStatus(
+                consultation.getPatientId(),
                 consultation.getDate(),
                 ConsultationStatus.SCHEDULED
         )).thenReturn(false);
@@ -41,17 +41,16 @@ public class ValidateMedicDoubleBookingTest {
     }
 
     @Test
-    @DisplayName("Should failwhen doctor already has a consultation at the same time")
-    public void doctorDoubleBooked() {
+    @DisplayName("Should fail when patient already has a consultation at the same time")
+    public void patientDoubleBooked() {
         Consultation consultation = new Consultation(1L, 1L, LocalDateTime.of(2025, 8, 25, 10, 0));
 
-        when(consultationRepository.existsByMedicIdAndDateAndStatus(
-                consultation.getMedicId(),
+        when(consultationRepository.existsByPatientIdAndDateAndStatus(
+                consultation.getPatientId(),
                 consultation.getDate(),
                 ConsultationStatus.SCHEDULED
         )).thenReturn(true);
 
         assertThrows(ValidateException.class, () -> validate.validate(consultation, consultation.getDate()));
     }
-
 }
