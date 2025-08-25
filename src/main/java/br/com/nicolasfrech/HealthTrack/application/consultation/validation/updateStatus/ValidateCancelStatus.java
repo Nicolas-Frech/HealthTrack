@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import java.time.LocalDateTime;
 
 @Component
-public class ValidateCancelTime implements UpdateStatusValidation {
+public class ValidateCancelStatus implements UpdateStatusValidation {
 
 
     @Override
