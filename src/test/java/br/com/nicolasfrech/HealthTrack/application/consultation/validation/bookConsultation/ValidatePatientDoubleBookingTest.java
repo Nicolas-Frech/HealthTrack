@@ -2,6 +2,7 @@ package br.com.nicolasfrech.HealthTrack.application.consultation.validation.book
 
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.BookConsultationDTO;
 import br.com.nicolasfrech.HealthTrack.application.consultation.gateway.ConsultationRepository;
+import br.com.nicolasfrech.HealthTrack.application.consultation.validation.hourValidation.ValidatePatientDoubleBooking;
 import br.com.nicolasfrech.HealthTrack.application.patient.gateway.PatientRepository;
 import br.com.nicolasfrech.HealthTrack.domain.consultation.ConsultationStatus;
 import br.com.nicolasfrech.HealthTrack.domain.patient.Patient;

@@ -5,6 +5,7 @@ import br.com.nicolasfrech.HealthTrack.application.consultation.dto.ChangeDateDT
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.UpdateStatusDTO;
 import br.com.nicolasfrech.HealthTrack.application.consultation.gateway.ConsultationRepository;
 import br.com.nicolasfrech.HealthTrack.application.consultation.validation.bookConsultation.BookConsultationValidation;
+import br.com.nicolasfrech.HealthTrack.application.consultation.validation.hourValidation.HourValidation;
 import br.com.nicolasfrech.HealthTrack.application.consultation.validation.updateStatus.UpdateStatusValidation;
 import br.com.nicolasfrech.HealthTrack.application.medic.gateway.MedicRepository;
 import br.com.nicolasfrech.HealthTrack.application.patient.gateway.PatientRepository;
@@ -28,6 +29,9 @@ public class ConsultationService {
     private List<BookConsultationValidation> bookConsultationValidations;
 
     @Autowired
+    private List<HourValidation> hourValidations;
+
+    @Autowired
     private List<UpdateStatusValidation> updateStatusValidations;
 
     public ConsultationService(ConsultationRepository consultationRepository, MedicRepository medicRepository, PatientRepository patientRepository) {
@@ -43,6 +47,7 @@ public class ConsultationService {
         Patient patient = patientRepository.findByCpfAndActiveTrue(dto.patientCPF());
 
         Consultation consultation = new Consultation(medic.getId(), patient.getId(), dto.date());
+        hourValidations.forEach(v -> v.validate(consultation, dto.date()));
 
         consultationRepository.save(consultation);
         return consultation;
@@ -59,6 +64,7 @@ public class ConsultationService {
 
     public Consultation changeConsultationDate(Long id, ChangeDateDTO date) {
         Consultation consultation = consultationRepository.getReferenceById(id);
+        hourValidations.forEach(v -> v.validate(consultation, date.date()));
 
         consultation.changeDate(date.date());
 
