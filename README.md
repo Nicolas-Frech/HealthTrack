@@ -8,6 +8,10 @@
   <img width="1323" height="757" alt="image" src="https://github.com/user-attachments/assets/f8577dee-0e6a-4879-af51-1784cef04ec5" />
 </p>
 
+<p align="center">
+  <img width="1351" height="694" alt="image" src="https://github.com/user-attachments/assets/a3e21231-c19a-4941-86b6-22ab29687bf3" />
+</p>
+
 ## 📌 Sobre o Projeto
 
 Sistema de Prontuário Médico, permitindo o cadastro e a administração de **Pacientes** e **Médicos**. Este software segue caracteristicas dos principios **SOLID** e **Clean Architecture** e **DDD (Domain Driven Design)**, em processo de produção.
@@ -55,10 +59,10 @@ O projeto ainda está em desenvolvimento.
 
   - Gerenciamento de Pacientes (CRUD)
   - Gerenciamento de Médicos (CRUD)
+  - Gerenciamento de Consultas (CRUD, Sistema de anotações/prescrições da consulta, validações)
 
 - **Funcionalidades Planejadas:**
 
-  - Agendamento de Consultas
   - Autenticação de Usuários
 
 ## 🤝 Contribuição
