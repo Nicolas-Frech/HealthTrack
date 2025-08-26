@@ -3,6 +3,7 @@ package br.com.nicolasfrech.HealthTrack.application.user;
 import br.com.nicolasfrech.HealthTrack.application.user.dto.UserRegistDTO;
 import br.com.nicolasfrech.HealthTrack.application.user.dto.UserReturnDTO;
 import br.com.nicolasfrech.HealthTrack.domain.user.User;
+import br.com.nicolasfrech.HealthTrack.infra.security.token.TokenDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -29,6 +30,12 @@ public class AuthController {
         URI uri = uriBuilder.path("/auth/{id}").buildAndExpand(user.getId()).toUri();
 
         return ResponseEntity.created(uri).body(new UserReturnDTO(user));
+    }
 
+    @PostMapping
+    @Transactional
+    public ResponseEntity<TokenDTO> login(@RequestBody @Valid UserRegistDTO dto) {
+        String token = authService.login(dto);
+        return ResponseEntity.ok(new TokenDTO(token));
     }
 }
