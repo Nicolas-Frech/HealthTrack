@@ -1,6 +1,20 @@
 const apiUrl = "http://localhost:8080/consultation";
 import { showMessage } from './messageUtil.js';
 
+const token = localStorage.getItem("token");
+if (!token) {
+  alert("Usuário não autenticado!");
+  window.location.href = "login.html";
+}
+
+// função para criar headers com token
+function authHeaders() {
+  return {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`
+  };
+}
+
 // Agendar consulta
 document.getElementById("bookForm").addEventListener("submit", async (e) => {
   e.preventDefault();
@@ -13,7 +27,7 @@ document.getElementById("bookForm").addEventListener("submit", async (e) => {
   try {
     const res = await fetch(apiUrl, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: authHeaders(),
       body: JSON.stringify(data)
     });
     if (res.ok) {
@@ -34,7 +48,7 @@ document.getElementById("updateDateForm").addEventListener("submit", async (e) =
   try {
     const res = await fetch(`${apiUrl}/${id}/date`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: authHeaders(),
       body: JSON.stringify(data)
     });
     if (res.ok) {
@@ -55,7 +69,7 @@ document.getElementById("updateStatusForm").addEventListener("submit", async (e)
   try {
     const res = await fetch(`${apiUrl}/${id}/status`, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: authHeaders(),
       body: JSON.stringify(data)
     });
     if (res.ok) {
@@ -78,7 +92,9 @@ async function loadConsultations(page = 0) {
   tableBody.innerHTML = `<tr><td colspan="5" class="text-center">Carregando...</td></tr>`;
 
   try {
-    const res = await fetch(`${apiUrl}?page=${page}&size=${pageSize}`);
+    const res = await fetch(`${apiUrl}?page=${page}&size=${pageSize}`, {
+      headers: authHeaders()
+    });
     if (res.ok) {
       const data = await res.json();
       const consultations = data.content;
