@@ -1,7 +1,21 @@
 const apiUrl = "http://localhost:8080/medic";
 import { showMessage } from './messageUtil.js';
 
-// Registrar
+const token = localStorage.getItem("token");
+if (!token) {
+  alert("Usuário não autenticado!");
+  window.location.href = "login.html";
+}
+
+// Cabeçalhos com token
+function authHeaders() {
+  return {
+    "Content-Type": "application/json",
+    "Authorization": `Bearer ${token}`
+  };
+}
+
+// Registrar médico
 document.getElementById("medicForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const data = {
@@ -15,7 +29,7 @@ document.getElementById("medicForm").addEventListener("submit", async (e) => {
   try {
     const res = await fetch(apiUrl, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: authHeaders(),
       body: JSON.stringify(data)
     });
     if (res.ok) {
@@ -27,7 +41,7 @@ document.getElementById("medicForm").addEventListener("submit", async (e) => {
   }
 });
 
-// Atualizar
+// Atualizar médico
 document.getElementById("updateForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const data = {
@@ -39,7 +53,7 @@ document.getElementById("updateForm").addEventListener("submit", async (e) => {
   try {
     const res = await fetch(apiUrl, {
       method: "PUT",
-      headers: { "Content-Type": "application/json" },
+      headers: authHeaders(),
       body: JSON.stringify(data)
     });
     if (res.ok) {
@@ -51,13 +65,16 @@ document.getElementById("updateForm").addEventListener("submit", async (e) => {
   }
 });
 
-// Deletar
+// Deletar médico
 document.getElementById("deleteForm").addEventListener("submit", async (e) => {
   e.preventDefault();
   const id = document.getElementById("deleteId").value;
 
   try {
-    const res = await fetch(`${apiUrl}/${id}`, { method: "DELETE" });
+    const res = await fetch(`${apiUrl}/${id}`, {
+      method: "DELETE",
+      headers: authHeaders()
+    });
     if (res.ok) {
       showMessage("Médico deletado com sucesso!");
       loadMedics();
@@ -67,6 +84,7 @@ document.getElementById("deleteForm").addEventListener("submit", async (e) => {
   }
 });
 
+// Listar médicos
 let currentPage = 0;
 const pageSize = 5;
 
@@ -77,7 +95,9 @@ async function loadMedics(page = 0) {
   tableBody.innerHTML = `<tr><td colspan="6" class="text-center">Carregando...</td></tr>`;
 
   try {
-    const res = await fetch(`${apiUrl}?page=${page}&size=${pageSize}`);
+    const res = await fetch(`${apiUrl}?page=${page}&size=${pageSize}`, {
+      headers: authHeaders()
+    });
     if (res.ok) {
       const data = await res.json();
       const medics = data.content;
@@ -100,13 +120,10 @@ async function loadMedics(page = 0) {
       `).join("");
 
       let buttons = "";
-      if (!data.first) {
-        buttons += `<button class="btn btn-sm btn-outline-secondary me-2" onclick="loadMedics(${currentPage - 1})">⬅ Anterior</button>`;
-      }
-      if (!data.last) {
-        buttons += `<button class="btn btn-sm btn-outline-secondary" onclick="loadMedics(${currentPage + 1})">Próxima ➡</button>`;
-      }
+      if (!data.first) buttons += `<button class="btn btn-sm btn-outline-secondary me-2" onclick="loadMedics(${currentPage - 1})">⬅ Anterior</button>`;
+      if (!data.last) buttons += `<button class="btn btn-sm btn-outline-secondary" onclick="loadMedics(${currentPage + 1})">Próxima ➡</button>`;
       paginationDiv.innerHTML = buttons;
+
     } else {
       tableBody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">Erro ao carregar médicos</td></tr>`;
     }
