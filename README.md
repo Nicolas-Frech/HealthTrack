@@ -69,6 +69,7 @@ O projeto ainda está em desenvolvimento.
 - **Funcionalidades Planejadas:**
 
   - Sempre que o ADMIN registrar um MÉDICO, automaticamente cria um Usuário (MEDIC) com username = CRM do Médico e senha = 3 primeiros digitos do CRM + 5 primeiros digitos do Celular.
+  - Página para o Usuário MÉDICO visualizar suas consultas, anotar e prescrever medicamentos para cada uma delas.
 
 
 ## 🤝 Contribuição
