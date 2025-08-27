@@ -15,6 +15,12 @@ function authHeaders() {
   };
 }
 
+//log out
+document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("token");
+    window.location.href = "auth.html";
+});
+
 // Agendar consulta
 document.getElementById("bookForm").addEventListener("submit", async (e) => {
   e.preventDefault();

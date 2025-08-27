@@ -16,6 +16,12 @@ function getHeaders() {
     };
 }
 
+//log out
+document.getElementById("logoutBtn").addEventListener("click", () => {
+    localStorage.removeItem("token");
+    window.location.href = "auth.html";
+});
+
 // Registrar paciente
 document.getElementById("patientForm").addEventListener("submit", async (e) => {
     e.preventDefault();
