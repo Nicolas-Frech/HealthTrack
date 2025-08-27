@@ -41,6 +41,13 @@ public class AuthService {
         var authToken = new UsernamePasswordAuthenticationToken(dto.username(), dto.password());
         authenticationManager.authenticate(authToken);
 
-        return tokenService.createToken(dto.username());
+        String role;
+        if (dto.username().equalsIgnoreCase("admin")) {
+            role = "ADMIN";
+        } else {
+            role = "MEDIC";
+        }
+
+        return tokenService.createToken(dto.username(), role);
     }
 }

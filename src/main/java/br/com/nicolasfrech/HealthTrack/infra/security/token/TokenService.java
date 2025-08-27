@@ -17,12 +17,13 @@ public class TokenService {
     @Value("${api.security.token.secret}")
     private String secret;
 
-    public String createToken(String username) {
+    public String createToken(String username, String role) {
         Algorithm algorithm = Algorithm.HMAC256(secret);
 
         try {
             return JWT.create()
                     .withIssuer("HealthTrack")
+                    .withClaim("role", role)
                     .withSubject(username)
                     .withExpiresAt(expirationDate())
                     .sign(algorithm);
