@@ -1,5 +1,5 @@
 import { Auth } from './authUtils.js';
-import { showMessage } from './messageUtils.js';
+import { showMessage } from './messageUtil.js';
 
 const auth = new Auth();
 const apiUrl = "http://localhost:8080/consultation";
@@ -7,11 +7,15 @@ const apiUrl = "http://localhost:8080/consultation";
 // Agendar consulta
 document.getElementById("bookForm").addEventListener("submit", async (e) => {
     e.preventDefault();
+    const dateInput = document.getElementById("bookDate").value;
+    const dateTime = dateInput + ":00";
+
     const data = {
-        medicCRM: document.getElementById("bookMedicCRM").value,
-        patientCPF: document.getElementById("bookPatientCPF").value,
-        date: document.getElementById("bookDate").value
+        medicCRM: document.getElementById("bookMedicCRM").value.trim(),
+        patientCPF: document.getElementById("bookPatientCPF").value.trim(),
+        date: dateTime
     };
+
 
     try {
         const res = await fetch(apiUrl, { method: "POST", headers: auth.headers(), body: JSON.stringify(data) });
@@ -24,7 +28,7 @@ document.getElementById("bookForm").addEventListener("submit", async (e) => {
 document.getElementById("updateDateForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const id = document.getElementById("updateDateId").value;
-    const data = { date: document.getElementById("updateDateInput").value };
+    const data = { date: document.getElementById("updateDateInput").value + ":00"};
     try {
         const res = await fetch(`${apiUrl}/${id}/date`, { method: "PUT", headers: auth.headers(), body: JSON.stringify(data) });
         if (res.ok) { showMessage("Data da consulta atualizada com sucesso!"); loadConsultations(); }

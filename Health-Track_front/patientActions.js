@@ -1,5 +1,5 @@
 import { Auth } from './authUtils.js';
-import { showMessage } from './messageUtils.js';
+import { showMessage } from './messageUtil.js';
 
 const auth = new Auth(); // já valida token e configura logout
 const apiUrl = "http://localhost:8080/patient";

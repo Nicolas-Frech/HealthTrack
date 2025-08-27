@@ -48,7 +48,7 @@ if (loginForm) {
         if (role === "ADMIN") {
           window.location.href = "consultationActions.html";
         } else if (role === "MEDIC") {
-          window.location.href = "medicDashboard.html";
+          window.location.href = "medicConsultations.html";
         } else {
           showMessage("Perfil não reconhecido.", "danger");
         }
@@ -67,13 +67,12 @@ if (registerForm) {
 
     const username = document.getElementById("registerUsername").value;
     const password = document.getElementById("registerPassword").value;
-    const role = document.getElementById("registerRole").value;
 
     try {
-      const response = await fetch(`${apiBaseUrl}/users`, {
+      const response = await fetch(`${apiBaseUrl}/auth/register`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password, role }),
+        body: JSON.stringify({ username, password }),
       });
 
       if (!response.ok) {
