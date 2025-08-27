@@ -1,26 +1,8 @@
+import { Auth } from './authUtils.js';
+import { showMessage } from './messageUtils.js';
+
+const auth = new Auth(); // já valida token e configura logout
 const apiUrl = "http://localhost:8080/patient";
-import { showMessage } from './messageUtil.js';
-
-// Verifica token
-const token = localStorage.getItem("token");
-if (!token) {
-    alert("Você precisa estar logado!");
-    window.location.href = "login.html";
-}
-
-// Função para headers com token
-function getHeaders() {
-    return {
-        "Content-Type": "application/json",
-        "Authorization": `Bearer ${token}`
-    };
-}
-
-//log out
-document.getElementById("logoutBtn").addEventListener("click", () => {
-    localStorage.removeItem("token");
-    window.location.href = "auth.html";
-});
 
 // Registrar paciente
 document.getElementById("patientForm").addEventListener("submit", async (e) => {
@@ -34,20 +16,10 @@ document.getElementById("patientForm").addEventListener("submit", async (e) => {
     };
 
     try {
-        const res = await fetch(apiUrl, {
-            method: "POST",
-            headers: getHeaders(),
-            body: JSON.stringify(data)
-        });
-        if (res.ok) {
-            showMessage("Paciente registrado com sucesso!");
-            loadPatients();
-        } else {
-            showMessage("Erro ao registrar paciente", "danger");
-        }
-    } catch {
-        showMessage("Erro de conexão com servidor", "danger");
-    }
+        const res = await fetch(apiUrl, { method: "POST", headers: auth.headers(), body: JSON.stringify(data) });
+        if (res.ok) { showMessage("Paciente registrado com sucesso!"); loadPatients(); }
+        else showMessage("Erro ao registrar paciente", "danger");
+    } catch { showMessage("Erro de conexão com servidor", "danger"); }
 });
 
 // Atualizar paciente
@@ -61,47 +33,27 @@ document.getElementById("updateForm").addEventListener("submit", async (e) => {
     };
 
     try {
-        const res = await fetch(apiUrl, {
-            method: "PUT",
-            headers: getHeaders(),
-            body: JSON.stringify(data)
-        });
-        if (res.ok) {
-            showMessage("Paciente atualizado com sucesso!");
-            loadPatients();
-        } else {
-            showMessage("Erro ao atualizar paciente", "danger");
-        }
-    } catch {
-        showMessage("Erro de conexão com servidor", "danger");
-    }
+        const res = await fetch(apiUrl, { method: "PUT", headers: auth.headers(), body: JSON.stringify(data) });
+        if (res.ok) { showMessage("Paciente atualizado com sucesso!"); loadPatients(); }
+        else showMessage("Erro ao atualizar paciente", "danger");
+    } catch { showMessage("Erro de conexão com servidor", "danger"); }
 });
 
 // Deletar paciente
 document.getElementById("deleteForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const id = document.getElementById("deleteId").value;
-
     try {
-        const res = await fetch(`${apiUrl}/${id}`, {
-            method: "DELETE",
-            headers: getHeaders()
-        });
-        if (res.ok) {
-            showMessage("Paciente deletado com sucesso!");
-            loadPatients();
-        } else {
-            showMessage("Erro ao deletar paciente", "danger");
-        }
-    } catch {
-        showMessage("Erro de conexão com servidor", "danger");
-    }
+        const res = await fetch(`${apiUrl}/${id}`, { method: "DELETE", headers: auth.headers() });
+        if (res.ok) { showMessage("Paciente deletado com sucesso!"); loadPatients(); }
+        else showMessage("Erro ao deletar paciente", "danger");
+    } catch { showMessage("Erro de conexão com servidor", "danger"); }
 });
 
+// Listar pacientes
 let currentPage = 0;
 const pageSize = 5;
 
-// Listar pacientes
 async function loadPatients(page = 0) {
     currentPage = page;
     const tableBody = document.getElementById("patientsTable");
@@ -109,13 +61,10 @@ async function loadPatients(page = 0) {
     tableBody.innerHTML = `<tr><td colspan="6" class="text-center">Carregando...</td></tr>`;
 
     try {
-        const res = await fetch(`${apiUrl}?page=${page}&size=${pageSize}`, {
-            headers: getHeaders()
-        });
+        const res = await fetch(`${apiUrl}?page=${page}&size=${pageSize}`, { headers: auth.headers() });
         if (res.ok) {
             const data = await res.json();
             const patients = data.content;
-
             if (!patients || patients.length === 0) {
                 tableBody.innerHTML = `<tr><td colspan="6" class="text-center">Nenhum paciente encontrado.</td></tr>`;
                 paginationDiv.innerHTML = "";
@@ -137,12 +86,9 @@ async function loadPatients(page = 0) {
             if (!data.first) buttons += `<button class="btn btn-sm btn-outline-secondary me-2" onclick="loadPatients(${currentPage - 1})">⬅ Anterior</button>`;
             if (!data.last) buttons += `<button class="btn btn-sm btn-outline-secondary" onclick="loadPatients(${currentPage + 1})">Próxima ➡</button>`;
             paginationDiv.innerHTML = buttons;
-        } else {
-            tableBody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">Erro ao carregar pacientes</td></tr>`;
-        }
-    } catch {
-        tableBody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">Falha na conexão</td></tr>`;
-    }
+
+        } else tableBody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">Erro ao carregar pacientes</td></tr>`;
+    } catch { tableBody.innerHTML = `<tr><td colspan="6" class="text-center text-danger">Falha na conexão</td></tr>`; }
 }
 
 document.getElementById("refreshList").addEventListener("click", () => loadPatients(currentPage));
