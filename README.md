@@ -1,15 +1,19 @@
 # 🏥 HealthTrack - Prontuário Médico
 
 <p align="center">
-  <img width="1342" height="871" alt="image" src="https://github.com/user-attachments/assets/655c61ae-b1c8-40e1-90c3-393728c72ce1" />
+<img width="1307" height="760" alt="image" src="https://github.com/user-attachments/assets/69ae6bea-24e9-41dd-9347-b156c266a7d5" />
 </p>
 
 <p align="center">
-  <img width="1323" height="757" alt="image" src="https://github.com/user-attachments/assets/f8577dee-0e6a-4879-af51-1784cef04ec5" />
+  <img width="1375" height="899" alt="image" src="https://github.com/user-attachments/assets/491514f2-f469-4ff8-963b-5d0c0d064f1d" />
 </p>
 
 <p align="center">
-  <img width="1351" height="694" alt="image" src="https://github.com/user-attachments/assets/a3e21231-c19a-4941-86b6-22ab29687bf3" />
+  <img width="1382" height="690" alt="image" src="https://github.com/user-attachments/assets/bf9d4a49-de65-43a9-b8e7-5032b2fc2321" />
+</p>
+
+<p align="center">
+  <img width="1408" height="772" alt="image" src="https://github.com/user-attachments/assets/79eb03c1-e538-44e5-b2d7-ed76c758f4a0" />
 </p>
 
 ## 📌 Sobre o Projeto
@@ -60,10 +64,12 @@ O projeto ainda está em desenvolvimento.
   - Gerenciamento de Pacientes (CRUD)
   - Gerenciamento de Médicos (CRUD)
   - Gerenciamento de Consultas (CRUD, Sistema de anotações/prescrições da consulta, validações)
+  - Autenticação de Usuários (ADMIN e MEDIC)
 
 - **Funcionalidades Planejadas:**
 
-  - Autenticação de Usuários
+  - Sempre que o ADMIN registrar um MÉDICO, automaticamente cria um Usuário (MEDIC) com username = CRM do Médico e senha = 3 primeiros digitos do CRM + 5 primeiros digitos do Celular.
+
 
 ## 🤝 Contribuição
 
