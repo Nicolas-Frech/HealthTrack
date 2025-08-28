@@ -68,9 +68,10 @@ export async function loadConsultations(page = 0) {
                 <td>${new Date(c.date).toLocaleString()}</td>
                 <td><span class="badge ${c.status === 'CONCLUIDA' ? 'bg-success' : 'bg-warning'}">${c.status}</span></td>
                 <td>
-                  <a href="medicNotes.html?consultationId=${c.id}" class="btn btn-sm ${c.status === 'CONCLUIDA' ? 'btn-secondary disabled' : 'btn-primary'}">
+                <button class="btn btn-sm ${c.status === 'CONCLUIDA' ? 'btn-secondary disabled' : 'btn-primary'}"
+                        ${c.status !== 'CONCLUIDA' ? `onclick="openNotesModal(${c.id})"` : ""}>
                     ${c.status === 'CONCLUIDA' ? 'Finalizada' : 'Abrir'}
-                  </a>
+                </button>
                 </td>
             </tr>
         `).join("");
@@ -87,9 +88,44 @@ export async function loadConsultations(page = 0) {
     }
 }
 
+export function openNotesModal(consultationId) {
+    document.getElementById("modalConsultationId").value = consultationId;
+    document.getElementById("modalNotes").value = "";
+    document.getElementById("modalPrescription").value = "";
+
+    const notesModal = new bootstrap.Modal(document.getElementById('notesModal'));
+    notesModal.show();
+}
+
+// Salvar notas e prescrição
+document.getElementById("modalSaveBtn").addEventListener("click", async () => {
+    const consultationId = document.getElementById("modalConsultationId").value;
+    const data = {
+        notes: document.getElementById("modalNotes").value,
+        prescription: document.getElementById("modalPrescription").value
+    };
+
+    try {
+        const res = await fetch(`${apiUrl}/${consultationId}/notes`, {
+            method: "PUT",
+            headers: auth.headers(),
+            body: JSON.stringify(data)
+        });
+        if (res.ok) {
+            showMessage("Consulta atualizada com sucesso!");
+            bootstrap.Modal.getInstance(document.getElementById('notesModal')).hide();
+        } else {
+            showMessage("Erro ao atualizar consulta", "danger");
+        }
+    } catch {
+        showMessage("Falha na conexão com servidor", "danger");
+    }
+});
+
 // Event listeners
 document.getElementById("refreshList")?.addEventListener("click", () => loadConsultations(currentPage));
 document.getElementById("list-tab")?.addEventListener("shown.bs.tab", () => loadConsultations(0));
 
 // Inicializa tabela
 loadConsultations(0);
+window.openNotesModal = openNotesModal;

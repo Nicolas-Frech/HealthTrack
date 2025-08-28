@@ -37,6 +37,35 @@
             <tr><td colspan="5" class="text-center">Carregando...</td></tr>
           </tbody>
         </table>
+
+        <div class="modal fade" id="notesModal" tabindex="-1" aria-labelledby="notesModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-lg modal-dialog-scrollable">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="notesModalLabel">Adicionar Anotações</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Fechar"></button>
+                </div>
+                <div class="modal-body">
+                  <form id="notesForm">
+                    <div class="mb-3">
+                      <label for="modalNotes" class="form-label">Anotações</label>
+                      <textarea class="form-control" id="modalNotes" rows="4" placeholder="Escreva suas observações..."></textarea>
+                    </div>
+                    <div class="mb-3">
+                      <label for="modalPrescription" class="form-label">Prescrição</label>
+                      <textarea class="form-control" id="modalPrescription" rows="3" placeholder="Indique medicamentos ou recomendações..."></textarea>
+                    </div>
+                    <input type="hidden" id="modalConsultationId">
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Fechar</button>
+                  <button type="button" class="btn btn-success" id="modalSaveBtn">Salvar</button>
+                </div>
+              </div>
+          </div>
+        </div>
+        <div id="message"></div>
         <div id="pagination" class="mt-2 text-center"></div>
       </div>
     </div>
