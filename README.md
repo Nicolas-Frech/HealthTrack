@@ -5,6 +5,14 @@
 </p>
 
 <p align="center">
+<img width="1412" height="564" alt="image" src="https://github.com/user-attachments/assets/5b67ec7b-16b4-4240-9b19-b8c06389c65b" />
+</p>
+
+<p align="center">
+<img width="1426" height="627" alt="image" src="https://github.com/user-attachments/assets/1d8f1972-faa4-427a-b4a1-48b52aef26d8" />
+</p>
+
+<p align="center">
   <img width="1375" height="899" alt="image" src="https://github.com/user-attachments/assets/491514f2-f469-4ff8-963b-5d0c0d064f1d" />
 </p>
 
@@ -66,11 +74,7 @@ O projeto ainda está em desenvolvimento.
   - Gerenciamento de Consultas (CRUD, Sistema de anotações/prescrições da consulta, validações)
   - Autenticação de Usuários (ADMIN e MEDIC)
   - Sempre que o ADMIN registrar um MÉDICO, automaticamente cria um Usuário (MEDIC) com username = CRM do Médico e senha = 3 primeiros digitos do CRM + 5 primeiros digitos do Celular.
-
-- **Funcionalidades Planejadas:**
-
   - Página para o Usuário MÉDICO visualizar suas consultas, anotar e prescrever medicamentos para cada uma delas.
-
 
 ## 🤝 Contribuição
 
