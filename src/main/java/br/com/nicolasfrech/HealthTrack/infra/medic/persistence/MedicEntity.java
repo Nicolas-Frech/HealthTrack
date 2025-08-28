@@ -1,6 +1,7 @@
 package br.com.nicolasfrech.HealthTrack.infra.medic.persistence;
 
 import br.com.nicolasfrech.HealthTrack.domain.medic.Speciality;
+import br.com.nicolasfrech.HealthTrack.infra.user.persistence.UserEntity;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 
@@ -22,6 +23,9 @@ public class MedicEntity {
     private String telephone;
     private String email;
     private Boolean active;
+
+    @OneToOne(mappedBy = "medic")
+    private UserEntity user;
 
     public MedicEntity() {
     }
@@ -62,5 +66,13 @@ public class MedicEntity {
 
     public Boolean getActive() {
         return active;
+    }
+
+    public UserEntity getUser() {
+        return user;
+    }
+
+    public void setUser(UserEntity user) {
+        this.user = user;
     }
 }

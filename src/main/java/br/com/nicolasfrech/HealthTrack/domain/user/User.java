@@ -1,36 +1,29 @@
 package br.com.nicolasfrech.HealthTrack.domain.user;
 
+import br.com.nicolasfrech.HealthTrack.domain.medic.Medic;
+
 public class User {
 
     private Long id;
     private String username;
     private String password;
     private Role role;
-    private String medicCRM;
+    private Medic medic;
 
     public User() {
     }
 
-    public User(Long id, String username, String password, Role role, String medicCRM) {
+    public User(Long id, String username, String password, Role role) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
-        this.medicCRM = medicCRM;
     }
 
     public User(String username, String password, Role role) {
         this.username = username;
         this.password = password;
         this.role = role;
-    }
-
-    public String getMedicCRM() {
-        return medicCRM;
-    }
-
-    public void setMedicCRM(String medicCRM) {
-        this.medicCRM = medicCRM;
     }
 
     public Long getId() {
@@ -47,5 +40,13 @@ public class User {
 
     public Role getRole() {
         return role;
+    }
+
+    public Medic getMedic() {
+        return medic;
+    }
+
+    public void setMedic(Medic medic) {
+        this.medic = medic;
     }
 }

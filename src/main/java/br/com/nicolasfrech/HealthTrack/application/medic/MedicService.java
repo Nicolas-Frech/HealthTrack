@@ -8,6 +8,7 @@ import br.com.nicolasfrech.HealthTrack.application.user.gateway.UserRepository;
 import br.com.nicolasfrech.HealthTrack.domain.medic.Medic;
 import br.com.nicolasfrech.HealthTrack.domain.user.Role;
 import br.com.nicolasfrech.HealthTrack.domain.user.User;
+import br.com.nicolasfrech.HealthTrack.infra.user.persistence.UserEntity;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -42,6 +43,9 @@ public class MedicService {
         String medicPassword = dto.crm().substring(0, 3) + dto.telephone().replaceAll("\\D", "").substring(0, 5);
 
         User user = new User(medic.getCrm(), passwordEncoder.encode(medicPassword), Role.MEDIC);
+
+        medic.setUser(user);
+        user.setMedic(medic);
 
         medicRepository.save(medic);
         userRepository.save(user);

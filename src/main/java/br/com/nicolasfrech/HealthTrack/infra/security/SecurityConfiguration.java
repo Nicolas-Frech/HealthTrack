@@ -34,14 +34,13 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/consultation").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/consultation/*/status").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/consultation/*/date").hasRole("ADMIN")
-                        .requestMatchers("/patient/**", "/medic/**").hasRole("ADMIN")
+                        .requestMatchers("/patient/**").hasRole("ADMIN")
 
                         // MEDIC
                         .requestMatchers(HttpMethod.PUT, "/consultation/*/notes").hasRole("MEDIC")
                         .requestMatchers(HttpMethod.GET, "/consultation/medic/*").hasRole("MEDIC")
 
-
-                        .requestMatchers(HttpMethod.GET, "/consultation").hasAnyRole("ADMIN", "MEDIC")).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
+                        .requestMatchers("/consultation", "/medic/**").hasAnyRole("ADMIN", "MEDIC")).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
 

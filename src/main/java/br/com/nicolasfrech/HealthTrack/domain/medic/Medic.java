@@ -1,6 +1,7 @@
 package br.com.nicolasfrech.HealthTrack.domain.medic;
 
 import br.com.nicolasfrech.HealthTrack.application.medic.dto.MedicUpdateDTO;
+import br.com.nicolasfrech.HealthTrack.domain.user.User;
 import br.com.nicolasfrech.HealthTrack.domain.validation.DomainValidator;
 
 public class Medic {
@@ -12,6 +13,7 @@ public class Medic {
     private String telephone;
     private String email;
     private Boolean active;
+    private User user;
 
     public Medic() {
     }
@@ -75,5 +77,13 @@ public class Medic {
 
     public Boolean getActive() {
         return active;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 }

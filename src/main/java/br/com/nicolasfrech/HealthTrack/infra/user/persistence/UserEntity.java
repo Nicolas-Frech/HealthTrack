@@ -1,6 +1,7 @@
 package br.com.nicolasfrech.HealthTrack.infra.user.persistence;
 
 import br.com.nicolasfrech.HealthTrack.domain.user.Role;
+import br.com.nicolasfrech.HealthTrack.infra.medic.persistence.MedicEntity;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import org.springframework.security.core.GrantedAuthority;
@@ -24,26 +25,23 @@ public class UserEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    private String medicCRM;
+    @OneToOne
+    @JoinColumn(name = "medic_id")
+    private MedicEntity medic;
 
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String username, String password, Role role, String medicCRM) {
+    public UserEntity(Long id, String username, String password, Role role) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
-        this.medicCRM = medicCRM;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(() -> "ROLE_" + role.name());
-    }
-
-    public String getMedicCRM() {
-        return medicCRM;
     }
 
     @Override
@@ -82,5 +80,13 @@ public class UserEntity implements UserDetails {
 
     public Role getRole() {
         return role;
+    }
+
+    public MedicEntity getMedic() {
+        return medic;
+    }
+
+    public void setMedic(MedicEntity medic) {
+        this.medic = medic;
     }
 }
