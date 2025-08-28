@@ -1,5 +1,6 @@
 import { Auth } from './authUtils.js';
 import { showMessage } from './messageUtil.js';
+import { getBadgeClass, translateStatus } from './statusUtil.js';
 
 const auth = new Auth();
 const apiUrl = "http://localhost:8080/consultation";
@@ -7,36 +8,6 @@ const patientApiUrl = "http://localhost:8080/patient";
 
 let currentPage = 0;
 const pageSize = 5;
-
-//troca cor do status
-function getBadgeClass(status) {
-    switch (status) {
-        case "SCHEDULED":
-            return "bg-warning"; // amarelo
-        case "CONCLUIDA":
-            return "bg-success"; // verde
-        case "CANCELED":
-            return "bg-danger";  // vermelho
-        default:
-            return "bg-secondary";
-    }
-}
-
-//traduz status
-function translateStatus(status) {
-    switch (status) {
-        case "SCHEDULED":
-            return "AGENDADA";
-        case "CONCLUIDA":
-            return "CONCLUÍDA";
-        case "CANCELED":
-            return "CANCELADA";
-        case "NO_SHOW":
-            return "PACIENTE FALTOU";
-        default:
-            return status;
-    }
-}
 
 // Pega dados do médico logado
 async function getLoggedMedic() {
@@ -96,14 +67,10 @@ export async function loadConsultations(page = 0) {
                 <td>${c.patientName}</td>
                 <td>${c.patientCPF}</td>
                 <td>${new Date(c.date).toLocaleString()}</td>
-                <td>
-                    <span class="badge ${getBadgeClass(c.status)}">
-                        ${translateStatus(c.status)}
-                    </span>
-                </td>
+                <td><span class="badge ${getBadgeClass(c.status)}">${translateStatus(c.status)}</span></td>
                 <td>
                 <button class="btn btn-sm ${c.status === 'CONCLUIDA' ? 'btn-secondary disabled' : 'btn-primary'}"
-                        ${c.status !== 'CONCLUIDA' ? `onclick="openNotesModal(${c.id})"` : ""}>
+                        onclick="openNotesModal(${c.id})">
                     ${c.status === 'CONCLUIDA' ? 'Finalizada' : 'Abrir'}
                 </button>
                 </td>

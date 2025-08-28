@@ -1,5 +1,6 @@
 import { Auth } from './authUtils.js';
 import { showMessage } from './messageUtil.js';
+import { getBadgeClass, translateStatus } from './statusUtil.js';
 
 const auth = new Auth();
 const apiUrl = "http://localhost:8080/consultation";
@@ -69,13 +70,13 @@ async function loadConsultations(page = 0) {
                 return;
             }
 
-            tableBody.innerHTML = consultations.map(c => `
+           tableBody.innerHTML = consultations.map(c => `
                 <tr>
                     <td>${c.id}</td>
                     <td>${c.medicId}</td>
                     <td>${c.patientId}</td>
                     <td>${c.date}</td>
-                    <td>${c.status}</td>
+                    <td><span class="badge ${getBadgeClass(c.status)}">${translateStatus(c.status)}</span></td>
                 </tr>
             `).join("");
 
