@@ -24,19 +24,26 @@ public class UserEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+    private String medicCRM;
+
     public UserEntity() {
     }
 
-    public UserEntity(Long id, String username, String password, Role role) {
+    public UserEntity(Long id, String username, String password, Role role, String medicCRM) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
+        this.medicCRM = medicCRM;
     }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(() -> "ROLE_" + role.name());
+    }
+
+    public String getMedicCRM() {
+        return medicCRM;
     }
 
     @Override

@@ -9,13 +9,15 @@ public class UserEntityMapper {
         return new User(entity.getId(),
                 entity.getUsername(),
                 entity.getPassword(),
-                entity.getRole());
+                entity.getRole(),
+                entity.getMedicCRM());
     }
 
     public UserEntity toEntity(User user) {
         return new UserEntity(user.getId(),
                 user.getUsername(),
                 user.getPassword(),
-                user.getRole());
+                user.getRole(),
+                user.getMedicCRM());
     }
 }

@@ -6,21 +6,31 @@ public class User {
     private String username;
     private String password;
     private Role role;
+    private String medicCRM;
 
     public User() {
     }
 
-    public User(Long id, String username, String password, Role role) {
+    public User(Long id, String username, String password, Role role, String medicCRM) {
         this.id = id;
         this.username = username;
         this.password = password;
         this.role = role;
+        this.medicCRM = medicCRM;
     }
 
     public User(String username, String password, Role role) {
         this.username = username;
         this.password = password;
         this.role = role;
+    }
+
+    public String getMedicCRM() {
+        return medicCRM;
+    }
+
+    public void setMedicCRM(String medicCRM) {
+        this.medicCRM = medicCRM;
     }
 
     public Long getId() {
