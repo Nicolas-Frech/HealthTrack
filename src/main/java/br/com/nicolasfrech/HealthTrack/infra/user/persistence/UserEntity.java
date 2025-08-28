@@ -25,8 +25,7 @@ public class UserEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToOne
-    @JoinColumn(name = "medic_id")
+    @OneToOne(mappedBy = "user")
     private MedicEntity medic;
 
     public UserEntity() {

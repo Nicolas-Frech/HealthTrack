@@ -4,6 +4,8 @@ import br.com.nicolasfrech.HealthTrack.application.medic.gateway.MedicRepository
 import br.com.nicolasfrech.HealthTrack.domain.medic.Medic;
 import br.com.nicolasfrech.HealthTrack.infra.medic.persistence.MedicEntity;
 import br.com.nicolasfrech.HealthTrack.infra.medic.persistence.MedicRepositoryJPA;
+import br.com.nicolasfrech.HealthTrack.infra.user.gateway.UserEntityMapper;
+import br.com.nicolasfrech.HealthTrack.infra.user.persistence.UserEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -11,15 +13,18 @@ public class MedicRepositoryImpl implements MedicRepository {
 
     private final MedicRepositoryJPA jpaRepository;
     private final MedicEntityMapper mapper;
+    private final UserEntityMapper userMapper;
 
-    public MedicRepositoryImpl(MedicRepositoryJPA jpaRepository, MedicEntityMapper mapper) {
+    public MedicRepositoryImpl(MedicRepositoryJPA jpaRepository, MedicEntityMapper mapper, UserEntityMapper userMapper) {
         this.jpaRepository = jpaRepository;
         this.mapper = mapper;
+        this.userMapper = userMapper;
     }
 
     @Override
     public Medic save(Medic medic) {
         MedicEntity entity = mapper.toEntity(medic);
+        entity.setUser(userMapper.toEntity(medic.getUser()));
 
         jpaRepository.save(entity);
         return mapper.toDomain(entity);

@@ -62,4 +62,11 @@ public class MedicController {
         Page<MedicReturnDTO> page = medicService.listAllMedics(pageable).map(MedicReturnDTO::new);
         return ResponseEntity.ok(page);
     }
+
+    @GetMapping("/me")
+    public ResponseEntity<MedicReturnDTO> getLoggedMedic(@AuthenticationPrincipal UserEntity user) {
+        Medic medic = medicService.getLoggedMedic(user);
+
+        return ResponseEntity.ok(new MedicReturnDTO(medic));
+    }
 }

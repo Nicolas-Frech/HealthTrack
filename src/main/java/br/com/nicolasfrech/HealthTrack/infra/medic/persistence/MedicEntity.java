@@ -24,7 +24,8 @@ public class MedicEntity {
     private String email;
     private Boolean active;
 
-    @OneToOne(mappedBy = "medic")
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "user_id")
     private UserEntity user;
 
     public MedicEntity() {

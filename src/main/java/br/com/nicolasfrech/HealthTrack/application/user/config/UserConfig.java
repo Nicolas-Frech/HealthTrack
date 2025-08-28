@@ -1,5 +1,6 @@
 package br.com.nicolasfrech.HealthTrack.application.user.config;
 
+import br.com.nicolasfrech.HealthTrack.infra.medic.gateway.MedicEntityMapper;
 import br.com.nicolasfrech.HealthTrack.infra.user.gateway.UserEntityMapper;
 import br.com.nicolasfrech.HealthTrack.infra.user.gateway.UserRepositoryImpl;
 import br.com.nicolasfrech.HealthTrack.infra.user.persistence.UserRepositoryJPA;
@@ -10,8 +11,8 @@ import org.springframework.context.annotation.Configuration;
 public class UserConfig {
 
     @Bean
-    UserRepositoryImpl createUserRepositoryImpl(UserEntityMapper mapper, UserRepositoryJPA jpa) {
-        return new UserRepositoryImpl(mapper, jpa);
+    UserRepositoryImpl createUserRepositoryImpl(UserEntityMapper mapper, MedicEntityMapper medicMapper, UserRepositoryJPA jpa) {
+        return new UserRepositoryImpl(mapper, medicMapper, jpa);
     }
 
     @Bean

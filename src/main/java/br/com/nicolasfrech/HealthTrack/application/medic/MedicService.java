@@ -48,7 +48,6 @@ public class MedicService {
         user.setMedic(medic);
 
         medicRepository.save(medic);
-        userRepository.save(user);
         return medic;
     }
 
@@ -73,5 +72,9 @@ public class MedicService {
 
     public Page<Medic> listAllMedics(Pageable pageable) {
         return medicRepository.findAllByActiveTrue(pageable);
+    }
+
+    public Medic getLoggedMedic(UserEntity user) {
+        return medicRepository.findByCrmAndActiveTrue(user.getMedic().getCrm());
     }
 }
