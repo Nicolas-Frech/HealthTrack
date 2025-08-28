@@ -30,13 +30,6 @@ public class AuthService {
         this.userRepository = userRepository;
     }
 
-    public User registUser(UserRegistDTO dto) {
-        String encodedPwd = passwordEncoder.encode(dto.password());
-        User user = new User(dto.username(), encodedPwd, Role.MEDIC);
-
-        return userRepository.save(user);
-    }
-
     public String login(UserRegistDTO dto) {
         var authToken = new UsernamePasswordAuthenticationToken(dto.username(), dto.password());
         authenticationManager.authenticate(authToken);

@@ -3,9 +3,6 @@ import { showMessage } from "./messageUtil.js";
 const apiBaseUrl = "http://localhost:8080";
 
 const loginForm = document.getElementById("loginForm");
-const registerForm = document.getElementById("registerForm");
-const messageDiv = document.getElementById("message");
-
 
 function getUserRoleFromToken(token) {
   try {
@@ -17,7 +14,6 @@ function getUserRoleFromToken(token) {
     return null;
   }
 }
-
 
 if (loginForm) {
   loginForm.addEventListener("submit", async (e) => {
@@ -53,34 +49,6 @@ if (loginForm) {
           showMessage("Perfil não reconhecido.", "danger");
         }
       }, 1200);
-
-    } catch (error) {
-      showMessage(error.message, "danger");
-    }
-  });
-}
-
-
-if (registerForm) {
-  registerForm.addEventListener("submit", async (e) => {
-    e.preventDefault();
-
-    const username = document.getElementById("registerUsername").value;
-    const password = document.getElementById("registerPassword").value;
-
-    try {
-      const response = await fetch(`${apiBaseUrl}/auth/register`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ username, password }),
-      });
-
-      if (!response.ok) {
-        throw new Error("Falha no cadastro. Verifique os dados.");
-      }
-
-      showMessage("Usuário cadastrado com sucesso!", "success");
-      registerForm.reset();
 
     } catch (error) {
       showMessage(error.message, "danger");
