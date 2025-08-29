@@ -73,8 +73,8 @@ async function loadConsultations(page = 0) {
            tableBody.innerHTML = consultations.map(c => `
                 <tr>
                     <td>${c.id}</td>
-                    <td>${c.medicId}</td>
-                    <td>${c.patientId}</td>
+                    <td>${c.medic ? `${c.medic.name}` : "-"}</td>
+                    <td>${c.patient ? `${c.patient.name}`: "-"}</td>
                     <td>${new Date(c.date).toLocaleString()}</td>
                     <td><span class="badge ${getBadgeClass(c.status)}">${translateStatus(c.status)}</span></td>
                 </tr>

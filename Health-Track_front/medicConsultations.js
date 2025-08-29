@@ -4,7 +4,6 @@ import { getBadgeClass, translateStatus } from './statusUtil.js';
 
 const auth = new Auth();
 const apiUrl = "http://localhost:8080/consultation";
-const patientApiUrl = "http://localhost:8080/patient";
 
 let currentPage = 0;
 const pageSize = 5;
@@ -21,17 +20,6 @@ async function getLoggedMedic() {
     }
 }
 
-// Busca dados do paciente pelo ID
-async function getPatientInfo(id) {
-    try {
-        const res = await fetch(`${patientApiUrl}/${id}`, { headers: auth.headers() });
-        if (!res.ok) throw new Error("Erro ao buscar paciente");
-        return await res.json();
-    } catch {
-        return { name: "Desconhecido", cpf: "-" };
-    }
-}
-
 // Carrega consultas do médico logado
 export async function loadConsultations(page = 0) {
     currentPage = page;
@@ -40,11 +28,14 @@ export async function loadConsultations(page = 0) {
     tableBody.innerHTML = `<tr><td colspan="5" class="text-center">Carregando...</td></tr>`;
 
     try {
+        // Busca dados do médico logado para exibir mesmo sem consultas
         const medic = await getLoggedMedic();
         document.getElementById("doctorInfo").textContent = `Dr. ${medic.name} (CRM ${medic.crm})`;
 
-        const res = await fetch(`${apiUrl}/medic/${medic.id}?page=${page}&size=${pageSize}`, { headers: auth.headers() });
+        // Busca consultas
+        const res = await fetch(`${apiUrl}/medic/${medic.id}`, { headers: auth.headers() });
         if (!res.ok) throw new Error("Erro ao carregar consultas");
+
         const data = await res.json();
         const consultations = data.content;
 
@@ -54,25 +45,18 @@ export async function loadConsultations(page = 0) {
             return;
         }
 
-        // Busca dados dos pacientes em paralelo
-        const consultationsWithPatients = await Promise.all(
-            consultations.map(async c => {
-                const patient = await getPatientInfo(c.patientId);
-                return { ...c, patientName: patient.name, patientCPF: patient.cpf };
-            })
-        );
-
-        tableBody.innerHTML = consultationsWithPatients.map(c => `
+        // Monta tabela usando os objetos patient que já vêm da API
+        tableBody.innerHTML = consultations.map(c => `
             <tr>
-                <td>${c.patientName}</td>
-                <td>${c.patientCPF}</td>
+                <td>${c.patient ? c.patient.name : "Desconhecido"}</td>
+                <td>${c.patient ? c.patient.cpf : "-"}</td>
                 <td>${new Date(c.date).toLocaleString()}</td>
                 <td><span class="badge ${getBadgeClass(c.status)}">${translateStatus(c.status)}</span></td>
                 <td>
-                <button class="btn btn-sm ${c.status === 'CONCLUIDA' ? 'btn-secondary disabled' : 'btn-primary'}"
-                        onclick="openNotesModal(${c.id})">
-                    ${c.status === 'CONCLUIDA' ? 'Finalizada' : 'Abrir'}
-                </button>
+                    <button class="btn btn-sm ${c.status === 'CONCLUIDA' ? 'btn-secondary disabled' : 'btn-primary'}"
+                            onclick="openNotesModal(${c.id})">
+                        ${c.status === 'CONCLUIDA' ? 'Finalizada' : 'Abrir'}
+                    </button>
                 </td>
             </tr>
         `).join("");
