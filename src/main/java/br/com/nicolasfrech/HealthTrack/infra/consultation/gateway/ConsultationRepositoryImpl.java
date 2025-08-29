@@ -57,4 +57,9 @@ public class ConsultationRepositoryImpl implements ConsultationRepository {
 
         return page.map(mapper::toDomain);
     }
+
+    @Override
+    public Consultation findById(Long id) {
+        return mapper.toDomain(jpaRepository.getReferenceById(id));
+    }
 }

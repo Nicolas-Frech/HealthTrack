@@ -39,7 +39,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.PUT, "/consultation/*/notes").hasRole("MEDIC")
                         .requestMatchers(HttpMethod.GET, "/consultation/medic/*").hasRole("MEDIC")
 
-                        .requestMatchers("/consultation", "/medic/**").hasAnyRole("ADMIN", "MEDIC")
+                        .requestMatchers("/consultation/**", "/medic/**").hasAnyRole("ADMIN", "MEDIC")
                         .requestMatchers("/patient/**").hasAnyRole("ADMIN", "MEDIC")).addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }

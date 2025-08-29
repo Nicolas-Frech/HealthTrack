@@ -90,4 +90,8 @@ public class ConsultationService {
     public Page<Consultation> findAllByMedicId(Pageable pageable, Long id) {
         return consultationRepository.findAllByMedicId(pageable, id);
     }
+
+    public Consultation findById(Long id) {
+        return consultationRepository.findById(id);
+    }
 }

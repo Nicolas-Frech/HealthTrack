@@ -73,4 +73,11 @@ public class ConsultationController {
 
         return ResponseEntity.ok(page);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ConsultationReturnDTO> findById(@PathVariable Long id) {
+        Consultation consultation = consultationService.findById(id);
+
+        return ResponseEntity.ok(new ConsultationReturnDTO(consultation));
+    }
 }

@@ -73,11 +73,28 @@ export async function loadConsultations(page = 0) {
     }
 }
 
-export function openNotesModal(consultationId) {
+export async function openNotesModal(consultationId) {
     document.getElementById("modalConsultationId").value = consultationId;
-    document.getElementById("modalNotes").value = "";
-    document.getElementById("modalPrescription").value = "";
+    document.getElementById("modalNotes").value = "Carregando...";
+    document.getElementById("modalPrescription").value = "Carregando...";
 
+    try {
+        const res = await fetch(`${apiUrl}/${consultationId}`, { headers: auth.headers() });
+        if (!res.ok) throw new Error("Erro ao carregar dados da consulta");
+
+        const consultation = await res.json();
+
+        document.getElementById("modalNotes").value = consultation.notes || "";
+        document.getElementById("modalPrescription").value = consultation.prescription || "";
+
+    } catch (err) {
+        showMessage("Falha ao carregar notas da consulta", "danger");
+        console.error(err);
+        document.getElementById("modalNotes").value = "";
+        document.getElementById("modalPrescription").value = "";
+    }
+
+    // Abre a modal
     const notesModal = new bootstrap.Modal(document.getElementById('notesModal'));
     notesModal.show();
 }
