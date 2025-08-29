@@ -1,8 +1,12 @@
 package br.com.nicolasfrech.HealthTrack.infra.patient.persistence;
 
 
+import br.com.nicolasfrech.HealthTrack.infra.consultation.persistence.ConsultationEntity;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "patients")
@@ -19,6 +23,9 @@ public class PatientEntity {
     private String email;
     private String telephone;
     private Boolean active;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ConsultationEntity> consultations = new ArrayList<>();
 
     public PatientEntity(){
     }

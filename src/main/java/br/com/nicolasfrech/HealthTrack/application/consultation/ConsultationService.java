@@ -47,7 +47,7 @@ public class ConsultationService {
         Medic medic = medicRepository.findByCrmAndActiveTrue(dto.medicCRM());
         Patient patient = patientRepository.findByCpfAndActiveTrue(dto.patientCPF());
 
-        Consultation consultation = new Consultation(medic.getId(), patient.getId(), dto.date());
+        Consultation consultation = new Consultation(medic, patient, dto.date());
         hourValidations.forEach(v -> v.validate(consultation, dto.date()));
 
         consultationRepository.save(consultation);

@@ -21,7 +21,7 @@ public class ValidateMedicDoubleBooking implements HourValidation {
     public void validate(Consultation consultation, LocalDateTime newDate) {
         boolean medicHasOtherConsultation = consultationRepository
                 .existsByMedicIdAndDateAndStatus(
-                        consultation.getMedicId(),
+                        consultation.getMedic().getId(),
                         newDate,
                         ConsultationStatus.SCHEDULED
                 );

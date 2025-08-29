@@ -1,9 +1,13 @@
 package br.com.nicolasfrech.HealthTrack.infra.medic.persistence;
 
 import br.com.nicolasfrech.HealthTrack.domain.medic.Speciality;
+import br.com.nicolasfrech.HealthTrack.infra.consultation.persistence.ConsultationEntity;
 import br.com.nicolasfrech.HealthTrack.infra.user.persistence.UserEntity;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "medics")
@@ -27,6 +31,9 @@ public class MedicEntity {
     @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "user_id")
     private UserEntity user;
+
+    @OneToMany(mappedBy = "medic", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ConsultationEntity> consultations = new ArrayList<>();
 
     public MedicEntity() {
     }

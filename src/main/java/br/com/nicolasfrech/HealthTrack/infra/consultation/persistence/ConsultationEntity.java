@@ -1,6 +1,8 @@
 package br.com.nicolasfrech.HealthTrack.infra.consultation.persistence;
 
 import br.com.nicolasfrech.HealthTrack.domain.consultation.ConsultationStatus;
+import br.com.nicolasfrech.HealthTrack.infra.medic.persistence.MedicEntity;
+import br.com.nicolasfrech.HealthTrack.infra.patient.persistence.PatientEntity;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 
@@ -14,8 +16,15 @@ public class ConsultationEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Long medicId;
-    private Long patientId;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "medic_id", nullable = false)
+    private MedicEntity medic;
+
+    @ManyToOne(optional = false, fetch = FetchType.LAZY)
+    @JoinColumn(name = "patient_id", nullable = false)
+    private PatientEntity patient;
+
     private LocalDateTime date;
 
     @Lob
@@ -32,10 +41,10 @@ public class ConsultationEntity {
     public ConsultationEntity() {
     }
 
-    public ConsultationEntity(Long id, Long medicId, Long patientId, LocalDateTime date, String notes, String prescription, ConsultationStatus status) {
+    public ConsultationEntity(Long id, MedicEntity medic, PatientEntity patient, LocalDateTime date, String notes, String prescription, ConsultationStatus status) {
         this.id = id;
-        this.medicId = medicId;
-        this.patientId = patientId;
+        this.medic = medic;
+        this.patient = patient;
         this.date = date;
         this.notes = notes;
         this.prescription = prescription;
@@ -46,12 +55,12 @@ public class ConsultationEntity {
         return id;
     }
 
-    public Long getMedicId() {
-        return medicId;
+    public MedicEntity getMedic() {
+        return medic;
     }
 
-    public Long getPatientId() {
-        return patientId;
+    public PatientEntity getPatient() {
+        return patient;
     }
 
     public LocalDateTime getDate() {
