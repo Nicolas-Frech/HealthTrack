@@ -1,12 +1,15 @@
 package br.com.nicolasfrech.HealthTrack.domain.consultation;
 
+import br.com.nicolasfrech.HealthTrack.domain.medic.Medic;
+import br.com.nicolasfrech.HealthTrack.domain.patient.Patient;
+
 import java.time.LocalDateTime;
 
 public class Consultation {
 
     private Long id;
-    private Long medicId;
-    private Long patientId;
+    private Medic medic;
+    private Patient patient;
     private LocalDateTime date;
     private String notes;
     private String prescription;
@@ -15,19 +18,19 @@ public class Consultation {
     public Consultation() {
     }
 
-    public Consultation(Long id, Long medicId, Long patientId, LocalDateTime date, String notes, String prescription, ConsultationStatus status) {
+    public Consultation(Long id, Medic medic, Patient patient, LocalDateTime date, String notes, String prescription, ConsultationStatus status) {
         this.id = id;
-        this.medicId = medicId;
-        this.patientId = patientId;
+        this.medic = medic;
+        this.patient = patient;
         this.date = date;
         this.notes = notes;
         this.prescription = prescription;
         this.status = status;
     }
 
-    public Consultation(Long medicId, Long patientId, LocalDateTime date) {
-        this.medicId = medicId;
-        this.patientId = patientId;
+    public Consultation(Medic medic, Patient patient, LocalDateTime date) {
+        this.medic = medic;
+        this.patient = patient;
         this.date = date;
         this.status = ConsultationStatus.SCHEDULED;
     }
@@ -60,12 +63,12 @@ public class Consultation {
         return id;
     }
 
-    public Long getMedicId() {
-        return medicId;
+    public Medic getMedic() {
+        return medic;
     }
 
-    public Long getPatientId() {
-        return patientId;
+    public Patient getPatient() {
+        return patient;
     }
 
     public LocalDateTime getDate() {

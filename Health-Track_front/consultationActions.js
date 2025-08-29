@@ -75,7 +75,7 @@ async function loadConsultations(page = 0) {
                     <td>${c.id}</td>
                     <td>${c.medicId}</td>
                     <td>${c.patientId}</td>
-                    <td>${c.date}</td>
+                    <td>${new Date(c.date).toLocaleString()}</td>
                     <td><span class="badge ${getBadgeClass(c.status)}">${translateStatus(c.status)}</span></td>
                 </tr>
             `).join("");

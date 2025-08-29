@@ -1,8 +1,11 @@
 package br.com.nicolasfrech.HealthTrack.domain.medic;
 
 import br.com.nicolasfrech.HealthTrack.application.medic.dto.MedicUpdateDTO;
+import br.com.nicolasfrech.HealthTrack.domain.consultation.Consultation;
 import br.com.nicolasfrech.HealthTrack.domain.user.User;
 import br.com.nicolasfrech.HealthTrack.domain.validation.DomainValidator;
+
+import java.util.List;
 
 public class Medic {
 
@@ -14,6 +17,7 @@ public class Medic {
     private String email;
     private Boolean active;
     private User user;
+    private List<Consultation> consultations;
 
     public Medic() {
     }
@@ -85,5 +89,13 @@ public class Medic {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public List<Consultation> getConsultations() {
+        return consultations;
+    }
+
+    public void setConsultations(List<Consultation> consultations) {
+        this.consultations = consultations;
     }
 }

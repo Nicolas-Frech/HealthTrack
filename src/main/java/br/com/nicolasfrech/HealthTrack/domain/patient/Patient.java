@@ -1,7 +1,10 @@
 package br.com.nicolasfrech.HealthTrack.domain.patient;
 
 import br.com.nicolasfrech.HealthTrack.application.patient.dto.PatientUpdateDTO;
+import br.com.nicolasfrech.HealthTrack.domain.consultation.Consultation;
 import br.com.nicolasfrech.HealthTrack.domain.validation.DomainValidator;
+
+import java.util.List;
 
 public class Patient {
 
@@ -12,6 +15,7 @@ public class Patient {
     private String email;
     private String telephone;
     private Boolean active;
+    private List<Consultation> consultations;
 
     public Patient() {
     }
@@ -77,5 +81,13 @@ public class Patient {
 
     public String getTelephone() {
         return telephone;
+    }
+
+    public List<Consultation> getConsultations() {
+        return consultations;
+    }
+
+    public void setConsultations(List<Consultation> consultations) {
+        this.consultations = consultations;
     }
 }
