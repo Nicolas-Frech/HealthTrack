@@ -3,6 +3,9 @@ package br.com.nicolasfrech.HealthTrack.application.consultation.validation.hour
 import br.com.nicolasfrech.HealthTrack.application.consultation.gateway.ConsultationRepository;
 import br.com.nicolasfrech.HealthTrack.domain.consultation.Consultation;
 import br.com.nicolasfrech.HealthTrack.domain.consultation.ConsultationStatus;
+import br.com.nicolasfrech.HealthTrack.domain.medic.Medic;
+import br.com.nicolasfrech.HealthTrack.domain.medic.Speciality;
+import br.com.nicolasfrech.HealthTrack.domain.patient.Patient;
 import br.com.nicolasfrech.HealthTrack.infra.exception.ValidateException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -20,19 +23,38 @@ public class ValidatePatientDoubleBookingTest {
     private ConsultationRepository consultationRepository;
     private ValidatePatientDoubleBooking validate;
 
+    private Medic medic;
+    private Patient patient;
+
     @BeforeEach
     public void setup() {
         consultationRepository = mock(ConsultationRepository.class);
         validate = new ValidatePatientDoubleBooking(consultationRepository);
+
+        medic = new Medic(
+                "Medic",
+                "SC123456",
+                Speciality.CARDIOLOGIA,
+                "(47) 99999-4949",
+                "email@email.com"
+        );
+
+        patient = new Patient(
+                "Patient",
+                "123.456.789-00",
+                12,
+                "email@email.com",
+                "(47) 99999-5948"
+        );
     }
 
     @Test
     @DisplayName("Should pass when patient has no other consultation at the same time")
     public void patientAvailable() {
-        Consultation consultation = new Consultation(1L, 1L, LocalDateTime.of(2025, 8, 25, 10, 0));
+        Consultation consultation = new Consultation(medic, patient, LocalDateTime.of(2025, 8, 25, 10, 0));
 
         when(consultationRepository.existsByPatientIdAndDateAndStatus(
-                consultation.getPatientId(),
+                consultation.getPatient().getId(),
                 consultation.getDate(),
                 ConsultationStatus.SCHEDULED
         )).thenReturn(false);
@@ -43,10 +65,10 @@ public class ValidatePatientDoubleBookingTest {
     @Test
     @DisplayName("Should fail when patient already has a consultation at the same time")
     public void patientDoubleBooked() {
-        Consultation consultation = new Consultation(1L, 1L, LocalDateTime.of(2025, 8, 25, 10, 0));
+        Consultation consultation = new Consultation(medic, patient, LocalDateTime.of(2025, 8, 25, 10, 0));
 
         when(consultationRepository.existsByPatientIdAndDateAndStatus(
-                consultation.getPatientId(),
+                consultation.getPatient().getId(),
                 consultation.getDate(),
                 ConsultationStatus.SCHEDULED
         )).thenReturn(true);
