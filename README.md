@@ -26,7 +26,7 @@
 
 ## 📌 Sobre o Projeto
 
-Sistema de Prontuário Médico, permitindo o cadastro e a administração de **Pacientes** e **Médicos**. Este software segue caracteristicas dos principios **SOLID** e **Clean Architecture** e **DDD (Domain Driven Design)**, em processo de produção.
+Sistema de Prontuário Médico, permitindo o cadastro e a administração de **Pacientes**, **Médicos** e **Consultas**. Login e Autenticação com dois perfis: **MEDIC** e **ADMIN**. Este software segue caracteristicas dos principios **SOLID** e **Clean Architecture** e **DDD (Domain Driven Design)**, em processo de produção.
 
 A aplicação é composta por:
 
@@ -75,6 +75,10 @@ O projeto ainda está em desenvolvimento.
   - Autenticação de Usuários (ADMIN e MEDIC)
   - Sempre que o ADMIN registrar um MÉDICO, automaticamente cria um Usuário (MEDIC) com username = CRM do Médico e senha = 3 primeiros digitos do CRM + 5 primeiros digitos do Celular.
   - Página para o Usuário MÉDICO visualizar suas consultas, anotar e prescrever medicamentos para cada uma delas.
+ 
+- **Funcionalidades Previstas:**
+
+  - UPLOAD e DOWNLOAD de exames por PACIENTE. 
 
 ## 🤝 Contribuição
 
