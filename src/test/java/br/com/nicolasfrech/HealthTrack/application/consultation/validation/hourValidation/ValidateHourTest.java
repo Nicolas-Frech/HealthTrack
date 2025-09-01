@@ -45,7 +45,7 @@ public class ValidateHourTest {
     @DisplayName("Should pass for consultation within allowed hours")
     public void consultationWithinHours() {
         Consultation consultation = new Consultation(medic, patient,
-                LocalDateTime.of(2025, Month.AUGUST, 25, 10, 0));
+                LocalDateTime.of(2031, Month.AUGUST, 25, 10, 0));
 
         assertDoesNotThrow(() -> validateHour.validate(consultation, consultation.getDate()));
     }
