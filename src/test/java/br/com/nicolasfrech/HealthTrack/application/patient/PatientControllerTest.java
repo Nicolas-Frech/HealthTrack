@@ -18,6 +18,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -45,6 +46,7 @@ public class PatientControllerTest {
 
     @Test
     @DisplayName("Should return 400 code when invalid data")
+    @WithMockUser(roles = "ADMIN")
     public void registScenario01() throws Exception {
         var response = mvc.perform(post("/patient")).andReturn().getResponse();
 
@@ -53,6 +55,7 @@ public class PatientControllerTest {
 
     @Test
     @DisplayName("Should return 201 code when valid data")
+    @WithMockUser(roles = "ADMIN")
     public void registScenario02() throws Exception {
         PatientRegistDTO dto = new PatientRegistDTO("name", "063.837.709-93", 12,
                 "email@email.com",

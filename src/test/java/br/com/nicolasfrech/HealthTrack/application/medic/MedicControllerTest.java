@@ -13,9 +13,9 @@ import org.springframework.boot.test.autoconfigure.json.AutoConfigureJsonTesters
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.json.JacksonTester;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -43,6 +43,7 @@ public class MedicControllerTest {
 
     @Test
     @DisplayName("Should return 400 code when invalid data")
+    @WithMockUser(roles = "ADMIN")
     public void registScenario01() throws Exception {
         var response = mvc.perform(post("/medic")).andReturn().getResponse();
 
@@ -51,6 +52,7 @@ public class MedicControllerTest {
 
     @Test
     @DisplayName("Should return 201 code when valid data")
+    @WithMockUser(roles = "ADMIN")
     public void registScenario02() throws Exception {
         MedicRegistDTO dto = new MedicRegistDTO("name", "SC234567",
                 Speciality.CARDIOLOGIA, "(47) 99993-3937", "email@email.com");
