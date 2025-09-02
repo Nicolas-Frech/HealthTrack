@@ -78,7 +78,28 @@ O projeto ainda está em desenvolvimento.
  
 - **Funcionalidades Previstas:**
 
-  - UPLOAD e DOWNLOAD de exames por PACIENTE. 
+  - UPLOAD e DOWNLOAD de exames por PACIENTE.
+ 
+    
+## ⚡ Rodando o Projeto
+
+**Pré-requisitos:** Docker e Docker Compose  
+
+Suba os containers:  
+`docker-compose up -d --build`
+
+Acesse:  
+- Frontend: [http://localhost](http://localhost)  
+- Backend (API): [http://localhost:8080](http://localhost:8080)  
+
+
+**Observações importantes:**  
+- Um usuário **ADMIN** é criado automaticamente na primeira execução:  
+  - Username: `admin`  
+  - Senha: `admin123`  
+- Ao registrar um médico, um usuário **MEDIC** é criado automaticamente:  
+  - Username: CRM do médico  
+  - Senha: 3 primeiros dígitos do CRM + 5 primeiros dígitos do celular
 
 ## 🤝 Contribuição
 
