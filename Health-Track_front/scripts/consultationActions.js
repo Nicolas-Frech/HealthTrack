@@ -3,7 +3,6 @@ import { showMessage } from './messageUtil.js';
 import { getBadgeClass, translateStatus } from './statusUtil.js';
 
 const auth = new Auth();
-const apiUrl = "http://localhost:8080/consultation";
 
 // Agendar consulta
 document.getElementById("bookForm").addEventListener("submit", async (e) => {
@@ -19,7 +18,7 @@ document.getElementById("bookForm").addEventListener("submit", async (e) => {
 
 
     try {
-        const res = await fetch(apiUrl, { method: "POST", headers: auth.headers(), body: JSON.stringify(data) });
+        const res = await fetch(`${CONFIG.API_URL}/consultation`, { method: "POST", headers: auth.headers(), body: JSON.stringify(data) });
         if (res.ok) { showMessage("Consulta agendada com sucesso!"); loadConsultations(); }
         else showMessage("Erro ao agendar consulta", "danger");
     } catch { showMessage("Erro de conexão com servidor", "danger"); }
@@ -31,7 +30,7 @@ document.getElementById("updateDateForm").addEventListener("submit", async (e) =
     const id = document.getElementById("updateDateId").value;
     const data = { date: document.getElementById("updateDateInput").value + ":00"};
     try {
-        const res = await fetch(`${apiUrl}/${id}/date`, { method: "PUT", headers: auth.headers(), body: JSON.stringify(data) });
+        const res = await fetch(`${CONFIG.API_URL}/consultation/${id}/date`, { method: "PUT", headers: auth.headers(), body: JSON.stringify(data) });
         if (res.ok) { showMessage("Data da consulta atualizada com sucesso!"); loadConsultations(); }
         else showMessage("Erro ao atualizar data", "danger");
     } catch { showMessage("Erro de conexão com servidor", "danger"); }
@@ -43,7 +42,7 @@ document.getElementById("updateStatusForm").addEventListener("submit", async (e)
     const id = document.getElementById("updateStatusId").value;
     const data = { status: document.getElementById("updateStatusSelect").value };
     try {
-        const res = await fetch(`${apiUrl}/${id}/status`, { method: "PUT", headers: auth.headers(), body: JSON.stringify(data) });
+        const res = await fetch(`${CONFIG.API_URL}/consultation/${id}/status`, { method: "PUT", headers: auth.headers(), body: JSON.stringify(data) });
         if (res.ok) { showMessage("Status da consulta atualizado com sucesso!"); loadConsultations(); }
         else showMessage("Erro ao atualizar status", "danger");
     } catch { showMessage("Erro de conexão com servidor", "danger"); }
@@ -60,7 +59,7 @@ async function loadConsultations(page = 0) {
     tableBody.innerHTML = `<tr><td colspan="5" class="text-center">Carregando...</td></tr>`;
 
     try {
-        const res = await fetch(`${apiUrl}?page=${page}&size=${pageSize}`, { headers: auth.headers() });
+        const res = await fetch(`${CONFIG.API_URL}/consultation?page=${page}&size=${pageSize}`, { headers: auth.headers() });
         if (res.ok) {
             const data = await res.json();
             const consultations = data.content;

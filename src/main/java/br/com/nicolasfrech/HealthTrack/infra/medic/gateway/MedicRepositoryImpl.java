@@ -24,7 +24,10 @@ public class MedicRepositoryImpl implements MedicRepository {
     @Override
     public Medic save(Medic medic) {
         MedicEntity entity = mapper.toEntity(medic);
-        entity.setUser(userMapper.toEntity(medic.getUser()));
+
+        if(medic.getUser() != null) {
+            entity.setUser(userMapper.toEntity(medic.getUser()));
+        }
 
         jpaRepository.save(entity);
         return mapper.toDomain(entity);

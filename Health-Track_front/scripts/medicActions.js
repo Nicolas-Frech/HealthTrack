@@ -2,7 +2,6 @@ import { Auth } from './authUtils.js';
 import { showMessage } from './messageUtil.js';
 
 const auth = new Auth();
-const apiUrl = "http://localhost:8080/medic";
 
 // Registrar médico
 document.getElementById("medicForm").addEventListener("submit", async (e) => {
@@ -16,7 +15,7 @@ document.getElementById("medicForm").addEventListener("submit", async (e) => {
     };
 
     try {
-        const res = await fetch(apiUrl, { method: "POST", headers: auth.headers(), body: JSON.stringify(data) });
+        const res = await fetch(`${CONFIG.API_URL}/medic`, { method: "POST", headers: auth.headers(), body: JSON.stringify(data) });
         if (res.ok) { showMessage("Médico registrado com sucesso!"); loadMedics(); }
         else showMessage("Erro ao registrar médico", "danger");
     } catch { showMessage("Erro de conexão com servidor", "danger"); }
@@ -32,7 +31,7 @@ document.getElementById("updateForm").addEventListener("submit", async (e) => {
     };
 
     try {
-        const res = await fetch(apiUrl, { method: "PUT", headers: auth.headers(), body: JSON.stringify(data) });
+        const res = await fetch(`${CONFIG.API_URL}/medic`, { method: "PUT", headers: auth.headers(), body: JSON.stringify(data) });
         if (res.ok) { showMessage("Médico atualizado com sucesso!"); loadMedics(); }
         else showMessage("Erro ao atualizar médico", "danger");
     } catch { showMessage("Erro de conexão com servidor", "danger"); }
@@ -43,7 +42,7 @@ document.getElementById("deleteForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const id = document.getElementById("deleteId").value;
     try {
-        const res = await fetch(`${apiUrl}/${id}`, { method: "DELETE", headers: auth.headers() });
+        const res = await fetch(`${CONFIG.API_URL}/medic/${id}`, { method: "DELETE", headers: auth.headers() });
         if (res.ok) { showMessage("Médico deletado com sucesso!"); loadMedics(); }
         else showMessage("Erro ao deletar médico", "danger");
     } catch { showMessage("Erro de conexão com servidor", "danger"); }
@@ -60,7 +59,7 @@ async function loadMedics(page = 0) {
     tableBody.innerHTML = `<tr><td colspan="6" class="text-center">Carregando...</td></tr>`;
 
     try {
-        const res = await fetch(`${apiUrl}?page=${page}&size=${pageSize}`, { headers: auth.headers() });
+        const res = await fetch(`${CONFIG.API_URL}/medic?page=${page}&size=${pageSize}`, { headers: auth.headers() });
         if (res.ok) {
             const data = await res.json();
             const medics = data.content;

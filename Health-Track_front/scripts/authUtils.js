@@ -20,7 +20,7 @@ export class Auth {
     if (!btn) return;
     btn.addEventListener("click", () => {
       localStorage.removeItem("token");
-      window.location.href = "auth.html";
+      window.location.href = "index.html";
     });
   }
 }

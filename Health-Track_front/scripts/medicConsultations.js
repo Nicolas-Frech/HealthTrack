@@ -3,7 +3,6 @@ import { showMessage } from './messageUtil.js';
 import { getBadgeClass, translateStatus } from './statusUtil.js';
 
 const auth = new Auth();
-const apiUrl = "http://localhost:8080/consultation";
 
 let currentPage = 0;
 const pageSize = 5;
@@ -11,7 +10,7 @@ const pageSize = 5;
 // Pega dados do médico logado
 async function getLoggedMedic() {
     try {
-        const res = await fetch("http://localhost:8080/medic/me", { headers: auth.headers() });
+        const res = await fetch(`${CONFIG.API_URL}/medic/me`, { headers: auth.headers() });
         if (!res.ok) throw new Error("Erro ao buscar médico logado");
         return await res.json();
     } catch (err) {
@@ -33,7 +32,7 @@ export async function loadConsultations(page = 0) {
         document.getElementById("doctorInfo").textContent = `Dr. ${medic.name} (CRM ${medic.crm})`;
 
         // Busca consultas
-        const res = await fetch(`${apiUrl}/medic/${medic.id}`, { headers: auth.headers() });
+        const res = await fetch(`${CONFIG.API_URL}/consultation/medic/${medic.id}`, { headers: auth.headers() });
         if (!res.ok) throw new Error("Erro ao carregar consultas");
 
         const data = await res.json();
@@ -79,7 +78,7 @@ export async function openNotesModal(consultationId) {
     document.getElementById("modalPrescription").value = "Carregando...";
 
     try {
-        const res = await fetch(`${apiUrl}/${consultationId}`, { headers: auth.headers() });
+        const res = await fetch(`${CONFIG.API_URL}/consultation/${consultationId}`, { headers: auth.headers() });
         if (!res.ok) throw new Error("Erro ao carregar dados da consulta");
 
         const consultation = await res.json();
@@ -108,7 +107,7 @@ document.getElementById("modalSaveBtn").addEventListener("click", async () => {
     };
 
     try {
-        const res = await fetch(`${apiUrl}/${consultationId}/notes`, {
+        const res = await fetch(`${CONFIG.API_URL}/consultation/${consultationId}/notes`, {
             method: "PUT",
             headers: auth.headers(),
             body: JSON.stringify(data)

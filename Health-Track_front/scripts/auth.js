@@ -1,7 +1,5 @@
 import { showMessage } from "./messageUtil.js";
 
-const apiBaseUrl = "http://localhost:8080";
-
 const loginForm = document.getElementById("loginForm");
 
 function getUserRoleFromToken(token) {
@@ -23,7 +21,7 @@ if (loginForm) {
     const password = document.getElementById("loginPassword").value;
 
     try {
-      const response = await fetch(`${apiBaseUrl}/auth`, {
+      const response = await fetch(`${CONFIG.API_URL}/auth`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ username, password }),

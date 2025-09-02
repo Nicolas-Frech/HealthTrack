@@ -1,0 +1,44 @@
+version: '3.9'
+
+services:
+  db:
+    image: mysql:8.1
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: healthtrack
+      MYSQL_USER: user
+      MYSQL_PASSWORD: senha
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+    environment:
+      app.admin.username: admin
+      app.admin.password: admin123
+      SPRING_DATASOURCE_URL: jdbc:mysql://db:3306/healthtrack
+      SPRING_DATASOURCE_USERNAME: user
+      SPRING_DATASOURCE_PASSWORD: senha
+
+  frontend:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  db_data:
