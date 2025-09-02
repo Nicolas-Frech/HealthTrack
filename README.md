@@ -90,7 +90,6 @@ Suba os containers:
 
 Acesse:  
 - Frontend: [http://localhost](http://localhost)  
-- Backend (API): [http://localhost:8080](http://localhost:8080)  
 
 
 **Observações importantes:**  
