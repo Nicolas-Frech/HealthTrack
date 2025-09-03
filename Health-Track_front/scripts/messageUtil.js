@@ -2,7 +2,7 @@ export function showMessage(msg, type = "success") {
   const messageDiv = document.querySelector("#message"); // ou passe como parâmetro se preferir
   messageDiv.textContent = msg;
   messageDiv.className = "";
-  messageDiv.classList.add("mt-3", "text-center", type === "danger" ? "text-danger" : "text-success");
+  messageDiv.classList.add("mt-3", "text-center", "fw-bold", type === "danger" ? "text-danger" : "text-success");
 
   setTimeout(() => {
     messageDiv.textContent = "";
