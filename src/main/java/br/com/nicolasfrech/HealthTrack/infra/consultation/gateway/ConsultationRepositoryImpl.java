@@ -62,4 +62,9 @@ public class ConsultationRepositoryImpl implements ConsultationRepository {
     public Consultation findById(Long id) {
         return mapper.toDomain(jpaRepository.getReferenceById(id));
     }
+
+    @Override
+    public boolean existsById(Long id) {
+        return jpaRepository.existsById(id);
+    }
 }

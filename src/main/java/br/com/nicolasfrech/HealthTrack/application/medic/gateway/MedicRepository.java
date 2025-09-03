@@ -21,4 +21,6 @@ public interface MedicRepository {
     Medic findByCrmAndActiveTrue(String crm);
 
     boolean existsByCrmAndActiveTrue(String crm);
+
+    boolean existsByIdAndActiveTrue(Long id);
 }

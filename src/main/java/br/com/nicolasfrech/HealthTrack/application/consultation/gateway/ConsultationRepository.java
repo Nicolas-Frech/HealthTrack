@@ -22,4 +22,6 @@ public interface ConsultationRepository {
     Page<Consultation> findAllByMedicId(Pageable pageable, Long id);
 
     Consultation findById(Long id);
+
+    boolean existsById(Long id);
 }

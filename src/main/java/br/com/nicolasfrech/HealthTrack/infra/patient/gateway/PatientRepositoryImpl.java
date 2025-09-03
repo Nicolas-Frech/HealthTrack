@@ -65,4 +65,9 @@ public class PatientRepositoryImpl implements PatientRepository {
     public boolean existsByCpfAndActiveTrue(String cpf) {
         return jpaRepository.existsByCpfAndActiveTrue(cpf);
     }
+
+    @Override
+    public boolean existsByIdAndActiveTrue(Long id) {
+        return jpaRepository.existsByIdAndActiveTrue(id);
+    }
 }

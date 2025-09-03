@@ -17,4 +17,6 @@ public interface PatientRepositoryJPA extends JpaRepository<PatientEntity, Long>
     PatientEntity findByCpfAndActiveTrue(String cpf);
 
     boolean existsByCpfAndActiveTrue(String cpf);
+
+    boolean existsByIdAndActiveTrue(Long id);
 }

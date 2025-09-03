@@ -1,5 +1,6 @@
 package br.com.nicolasfrech.HealthTrack.application.patient;
 
+import br.com.nicolasfrech.HealthTrack.application.ActiveValidator;
 import br.com.nicolasfrech.HealthTrack.application.patient.dto.PatientRegistDTO;
 import br.com.nicolasfrech.HealthTrack.application.patient.dto.PatientUpdateDTO;
 import br.com.nicolasfrech.HealthTrack.application.patient.gateway.PatientRepository;
@@ -16,13 +17,16 @@ import java.util.List;
 public class PatientService {
 
     private final PatientRepository patientRepository;
+    private final ActiveValidator activeValidator;
 
-    public PatientService(PatientRepository patientRepository) {
+    public PatientService(PatientRepository patientRepository, ActiveValidator activeValidator) {
         this.patientRepository = patientRepository;
+        this.activeValidator = activeValidator;
     }
 
     @Autowired
     private List<PatientRegistValidation> registerValidations;
+
 
     public Patient registPatient(PatientRegistDTO dto) {
         registerValidations.forEach(v -> v.validate(dto));
@@ -34,6 +38,7 @@ public class PatientService {
     }
 
     public void deletePatient(Long id) {
+        activeValidator.validatePatientActive(id);
         Patient patient = patientRepository.findByIdAndActiveTrue(id);
         patient.deletePatient();
 
@@ -41,12 +46,14 @@ public class PatientService {
     }
 
     public Patient findPatientById(Long id) {
+        activeValidator.validatePatientActive(id);
         Patient patient = patientRepository.findById(id);
 
         return patient;
     }
 
     public Patient updatePatient(PatientUpdateDTO dto) {
+        activeValidator.validatePatientActive(dto.id());
         Patient patient = patientRepository.findById(dto.id());
         patient.updatePatient(dto);
 

@@ -21,4 +21,6 @@ public interface PatientRepository {
     Patient findByCpfAndActiveTrue(String cpf);
 
     boolean existsByCpfAndActiveTrue(String cpf);
+
+    boolean existsByIdAndActiveTrue(Long id);
 }

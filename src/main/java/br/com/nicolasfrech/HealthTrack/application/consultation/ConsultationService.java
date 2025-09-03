@@ -1,5 +1,6 @@
 package br.com.nicolasfrech.HealthTrack.application.consultation;
 
+import br.com.nicolasfrech.HealthTrack.application.ActiveValidator;
 import br.com.nicolasfrech.HealthTrack.application.consultation.dto.*;
 import br.com.nicolasfrech.HealthTrack.application.consultation.gateway.ConsultationRepository;
 import br.com.nicolasfrech.HealthTrack.application.consultation.validation.bookConsultation.BookConsultationValidation;
@@ -25,6 +26,7 @@ public class ConsultationService {
     private final ConsultationRepository consultationRepository;
     private final MedicRepository medicRepository;
     private final PatientRepository patientRepository;
+    private final ActiveValidator activeValidator;
 
     @Autowired
     private List<BookConsultationValidation> bookConsultationValidations;
@@ -35,10 +37,11 @@ public class ConsultationService {
     @Autowired
     private List<UpdateStatusValidation> updateStatusValidations;
 
-    public ConsultationService(ConsultationRepository consultationRepository, MedicRepository medicRepository, PatientRepository patientRepository) {
+    public ConsultationService(ConsultationRepository consultationRepository, MedicRepository medicRepository, PatientRepository patientRepository, ActiveValidator activeValidator) {
         this.consultationRepository = consultationRepository;
         this.medicRepository = medicRepository;
         this.patientRepository = patientRepository;
+        this.activeValidator = activeValidator;
     }
 
     public Consultation bookConsultation(BookConsultationDTO dto) {
@@ -55,6 +58,7 @@ public class ConsultationService {
     }
 
     public Consultation updateConsultationStatus(Long id, UpdateStatusDTO status) {
+        activeValidator.validateConsultation(id);
         Consultation consultation = consultationRepository.getReferenceById(id);
         updateStatusValidations.forEach(v -> v.validate(consultation, status));
         consultation.updateStatus(status.status());
@@ -64,6 +68,7 @@ public class ConsultationService {
     }
 
     public Consultation changeConsultationDate(Long id, ChangeDateDTO date) {
+        activeValidator.validateConsultation(id);
         Consultation consultation = consultationRepository.getReferenceById(id);
         hourValidations.forEach(v -> v.validate(consultation, date.date()));
 
@@ -92,6 +97,8 @@ public class ConsultationService {
     }
 
     public Consultation findById(Long id) {
+        activeValidator.validateConsultation(id);
+
         return consultationRepository.findById(id);
     }
 }

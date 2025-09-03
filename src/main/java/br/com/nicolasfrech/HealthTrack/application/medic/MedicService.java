@@ -1,5 +1,6 @@
 package br.com.nicolasfrech.HealthTrack.application.medic;
 
+import br.com.nicolasfrech.HealthTrack.application.ActiveValidator;
 import br.com.nicolasfrech.HealthTrack.application.medic.dto.MedicRegistDTO;
 import br.com.nicolasfrech.HealthTrack.application.medic.dto.MedicUpdateDTO;
 import br.com.nicolasfrech.HealthTrack.application.medic.gateway.MedicRepository;
@@ -21,7 +22,7 @@ import java.util.List;
 public class MedicService {
 
     private final MedicRepository medicRepository;
-    private final UserRepository userRepository;
+    private final ActiveValidator activeValidator;
 
     @Autowired
     private List<MedicRegistValidation> registerValidations;
@@ -29,9 +30,9 @@ public class MedicService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public MedicService(MedicRepository medicRepository, UserRepository userRepository) {
+    public MedicService(MedicRepository medicRepository, ActiveValidator activeValidator) {
         this.medicRepository = medicRepository;
-        this.userRepository = userRepository;
+        this.activeValidator = activeValidator;
     }
 
     public Medic registMedic(MedicRegistDTO dto) {
@@ -52,6 +53,7 @@ public class MedicService {
     }
 
     public void deleteMedic(Long id) {
+        activeValidator.validateMedicActive(id);
         Medic medic = medicRepository.findByIdAndActiveTrue(id);
 
         medic.deleteMedic();
@@ -59,10 +61,13 @@ public class MedicService {
     }
 
     public Medic findMedicById(Long id) {
+        activeValidator.validateMedicActive(id);
+
         return medicRepository.findById(id);
     }
 
     public Medic updateMedic(MedicUpdateDTO dto) {
+        activeValidator.validateMedicActive(dto.id());
         Medic medic = medicRepository.findByIdAndActiveTrue(dto.id());
         medic.updateMedic(dto);
 

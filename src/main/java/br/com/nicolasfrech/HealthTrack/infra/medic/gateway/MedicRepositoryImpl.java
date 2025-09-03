@@ -74,4 +74,9 @@ public class MedicRepositoryImpl implements MedicRepository {
     public boolean existsByCrmAndActiveTrue(String crm) {
         return jpaRepository.existsByCrmAndActiveTrue(crm);
     }
+
+    @Override
+    public boolean existsByIdAndActiveTrue(Long id) {
+        return jpaRepository.existsByIdAndActiveTrue(id);
+    }
 }

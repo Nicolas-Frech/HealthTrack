@@ -1,5 +1,9 @@
 package br.com.nicolasfrech.HealthTrack.application.medic.config;
 
+import br.com.nicolasfrech.HealthTrack.application.ActiveValidator;
+import br.com.nicolasfrech.HealthTrack.application.consultation.gateway.ConsultationRepository;
+import br.com.nicolasfrech.HealthTrack.application.medic.gateway.MedicRepository;
+import br.com.nicolasfrech.HealthTrack.application.patient.gateway.PatientRepository;
 import br.com.nicolasfrech.HealthTrack.infra.medic.gateway.MedicEntityMapper;
 import br.com.nicolasfrech.HealthTrack.infra.medic.gateway.MedicRepositoryImpl;
 import br.com.nicolasfrech.HealthTrack.infra.medic.persistence.MedicRepositoryJPA;
@@ -18,5 +22,11 @@ public class MedicConfig {
     @Bean
     MedicEntityMapper createMedicEntityMapper() {
         return new MedicEntityMapper();
+    }
+
+    @Bean
+    ActiveValidator createActiveValidator(MedicRepository medicRepository, PatientRepository patientRepository,
+                                          ConsultationRepository consultationRepository) {
+        return new ActiveValidator(medicRepository, patientRepository, consultationRepository);
     }
 }
