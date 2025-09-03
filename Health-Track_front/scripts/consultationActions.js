@@ -19,8 +19,13 @@ document.getElementById("bookForm").addEventListener("submit", async (e) => {
 
     try {
         const res = await fetch(`${CONFIG.API_URL}/consultation`, { method: "POST", headers: auth.headers(), body: JSON.stringify(data) });
-        if (res.ok) { showMessage("Consulta agendada com sucesso!"); loadConsultations(); }
-        else showMessage("Erro ao agendar consulta", "danger");
+        if (res.ok) { 
+            showMessage("Consulta agendada com sucesso!"); 
+            loadConsultations(); 
+        } else {
+            const errorData = await res.json();
+            showMessage(errorData.error || "Erro ao agendar consulta", "danger");
+        }
     } catch { showMessage("Erro de conexão com servidor", "danger"); }
 });
 
@@ -31,8 +36,13 @@ document.getElementById("updateDateForm").addEventListener("submit", async (e) =
     const data = { date: document.getElementById("updateDateInput").value + ":00"};
     try {
         const res = await fetch(`${CONFIG.API_URL}/consultation/${id}/date`, { method: "PUT", headers: auth.headers(), body: JSON.stringify(data) });
-        if (res.ok) { showMessage("Data da consulta atualizada com sucesso!"); loadConsultations(); }
-        else showMessage("Erro ao atualizar data", "danger");
+        if (res.ok) { 
+            showMessage("Data alterada com sucesso!"); 
+            loadConsultations(); 
+        } else {
+            const errorData = await res.json();
+            showMessage(errorData.error || "Erro ao alterar data", "danger");
+        }
     } catch { showMessage("Erro de conexão com servidor", "danger"); }
 });
 
@@ -43,8 +53,13 @@ document.getElementById("updateStatusForm").addEventListener("submit", async (e)
     const data = { status: document.getElementById("updateStatusSelect").value };
     try {
         const res = await fetch(`${CONFIG.API_URL}/consultation/${id}/status`, { method: "PUT", headers: auth.headers(), body: JSON.stringify(data) });
-        if (res.ok) { showMessage("Status da consulta atualizado com sucesso!"); loadConsultations(); }
-        else showMessage("Erro ao atualizar status", "danger");
+        if (res.ok) { 
+            showMessage("Status atualizado com sucesso!"); 
+            loadConsultations();
+        } else {
+            const errorData = await res.json();
+            showMessage(errorData.error || "Erro ao alterar status", "danger");
+        }
     } catch { showMessage("Erro de conexão com servidor", "danger"); }
 });
 

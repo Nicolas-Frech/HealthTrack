@@ -16,9 +16,16 @@ document.getElementById("medicForm").addEventListener("submit", async (e) => {
 
     try {
         const res = await fetch(`${CONFIG.API_URL}/medic`, { method: "POST", headers: auth.headers(), body: JSON.stringify(data) });
-        if (res.ok) { showMessage("Médico registrado com sucesso!"); loadMedics(); }
-        else showMessage("Erro ao registrar médico", "danger");
-    } catch { showMessage("Erro de conexão com servidor", "danger"); }
+        if (res.ok) { 
+            showMessage("Médico registrado com sucesso!"); 
+            loadMedics(); 
+        } else {
+            const errorData = await res.json();
+            showMessage(errorData.error || "Erro ao registrar médico", "danger");
+        }
+    } catch { 
+        showMessage("Erro de conexão com servidor", "danger"); 
+    }
 });
 
 // Atualizar médico
@@ -32,8 +39,13 @@ document.getElementById("updateForm").addEventListener("submit", async (e) => {
 
     try {
         const res = await fetch(`${CONFIG.API_URL}/medic`, { method: "PUT", headers: auth.headers(), body: JSON.stringify(data) });
-        if (res.ok) { showMessage("Médico atualizado com sucesso!"); loadMedics(); }
-        else showMessage("Erro ao atualizar médico", "danger");
+        if (res.ok) { 
+            showMessage("Médico atualizado com sucesso!"); 
+            loadMedics(); 
+        } else {
+            const errorData = await res.json();
+            showMessage(errorData.error || "Erro ao atualizar médico", "danger");
+        }
     } catch { showMessage("Erro de conexão com servidor", "danger"); }
 });
 
@@ -43,8 +55,13 @@ document.getElementById("deleteForm").addEventListener("submit", async (e) => {
     const id = document.getElementById("deleteId").value;
     try {
         const res = await fetch(`${CONFIG.API_URL}/medic/${id}`, { method: "DELETE", headers: auth.headers() });
-        if (res.ok) { showMessage("Médico deletado com sucesso!"); loadMedics(); }
-        else showMessage("Erro ao deletar médico", "danger");
+        if (res.ok) { 
+            showMessage("Médico deletado com sucesso!"); 
+            loadMedics(); 
+        } else {
+            const errorData = await res.json();
+            showMessage(errorData.error || "Erro ao deletar médico", "danger");
+        }
     } catch { showMessage("Erro de conexão com servidor", "danger"); }
 });
 

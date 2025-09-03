@@ -17,8 +17,13 @@ document.getElementById("patientForm").addEventListener("submit", async (e) => {
 
     try {
         const res = await fetch(`${CONFIG.API_URL}/patient`, { method: "POST", headers: auth.headers(), body: JSON.stringify(data) });
-        if (res.ok) { showMessage("Paciente registrado com sucesso!"); loadPatients(); }
-        else showMessage("Erro ao registrar paciente", "danger");
+        if (res.ok) { 
+            showMessage("Paciente registrado com sucesso!"); 
+            loadPatients(); 
+        } else {
+            const errorData = await res.json();
+            showMessage(errorData.error || "Erro ao registrar paciente", "danger");
+        }
     } catch { showMessage("Erro de conexão com servidor", "danger"); }
 });
 
@@ -34,8 +39,13 @@ document.getElementById("updateForm").addEventListener("submit", async (e) => {
 
     try {
         const res = await fetch(`${CONFIG.API_URL}/patient`, { method: "PUT", headers: auth.headers(), body: JSON.stringify(data) });
-        if (res.ok) { showMessage("Paciente atualizado com sucesso!"); loadPatients(); }
-        else showMessage("Erro ao atualizar paciente", "danger");
+        if (res.ok) { 
+            showMessage("Paciente atualizado com sucesso!");
+            loadPatients(); 
+        } else {
+            const errorData = await res.json();
+            showMessage(errorData.error || "Erro ao atualizar paciente", "danger");
+        }
     } catch { showMessage("Erro de conexão com servidor", "danger"); }
 });
 
@@ -45,8 +55,13 @@ document.getElementById("deleteForm").addEventListener("submit", async (e) => {
     const id = document.getElementById("deleteId").value;
     try {
         const res = await fetch(`${CONFIG.API_URL}/patient/${id}`, { method: "DELETE", headers: auth.headers() });
-        if (res.ok) { showMessage("Paciente deletado com sucesso!"); loadPatients(); }
-        else showMessage("Erro ao deletar paciente", "danger");
+        if (res.ok) { 
+            showMessage("Paciente deletado com sucesso!");
+            loadPatients(); 
+        } else {
+            const errorData = await res.json();
+            showMessage(errorData.error || "Erro ao deletar paciente", "danger");
+        }
     } catch { showMessage("Erro de conexão com servidor", "danger"); }
 });
 

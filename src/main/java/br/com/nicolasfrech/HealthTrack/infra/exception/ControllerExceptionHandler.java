@@ -7,6 +7,8 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
+import java.util.Map;
+
 @RestControllerAdvice
 public class ControllerExceptionHandler {
 
@@ -24,8 +26,8 @@ public class ControllerExceptionHandler {
     }
 
     @ExceptionHandler(ValidateException.class)
-    public ResponseEntity handleBusinessRule(ValidateException ex) {
-        return ResponseEntity.badRequest().body(ex.getMessage());
+    public ResponseEntity<Map<String, String>> handleBusinessRule(ValidateException ex) {
+        return ResponseEntity.badRequest().body(Map.of("error", ex.getMessage()));
     }
 
     private record DataErrorValidation(String field, String message) {
